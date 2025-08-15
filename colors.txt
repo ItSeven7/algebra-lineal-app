@@ -1,0 +1,31 @@
+Texto: #3F3F3F
+Fondo: #FAFAFA
+
+Primarios:
+#E4484B
+#3F51B5
+#7E57C2
+#2E3B55
+#00897B
+#5E35B1
+#6D4C41
+#37474F
+#D81B60
+#7986CB
+
+
+
+Color textColor = Color.fromRGBO(63, 63, 63, 1.0); // #3F3F3F
+Color backgroundColor = Color.fromRGBO(250, 250, 250, 1.0); // #FAFAFA
+
+
+Color primaryRed       = Color.fromRGBO(228, 72, 75, 1.0);   // #E4484B
+Color primaryIndigo    = Color.fromRGBO(63, 81, 181, 1.0);   // #3F51B5
+Color primaryPurple    = Color.fromRGBO(126, 87, 194, 1.0);  // #7E57C2
+Color primaryNavy      = Color.fromRGBO(46, 59, 85, 1.0);    // #2E3B55
+Color primaryTeal      = Color.fromRGBO(0, 137, 123, 1.0);   // #00897B
+Color primaryDeepPurple= Color.fromRGBO(94, 53, 177, 1.0);   // #5E35B1
+Color primaryBrown     = Color.fromRGBO(109, 76, 65, 1.0);   // #6D4C41
+Color primaryCharcoal  = Color.fromRGBO(55, 71, 79, 1.0);    // #37474F
+Color primaryMagenta   = Color.fromRGBO(216, 27, 96, 1.0);   // #D81B60
+Color primaryLavender  = Color.fromRGBO(121, 134, 203, 1.0); // #7986CB

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "4493924600",
+    "project_id": "algeneal-166f0",
+    "storage_bucket": "algeneal-166f0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4493924600:android:29756b81cf60276ffd030d",
+        "android_client_info": {
+          "package_name": "com.example.aplication_algebra_lineal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZoWYtVGEuemcuWUhX1DKt1xyS8OD4Ito"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
