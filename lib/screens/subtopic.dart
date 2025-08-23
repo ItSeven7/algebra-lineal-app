@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:quickalert/quickalert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:latext/latext.dart';
 
 import '../services/firebase_user_service.dart';
 import '../colecciones/cursos.dart';
@@ -62,7 +63,7 @@ class SubtopicScreen extends StatelessWidget {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Text(subtema.titulo), Text(subtema.contenido)],
+              children: [Text(subtema.titulo), buildContent(subtema.contenido)],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -116,4 +117,23 @@ class SubtopicScreen extends StatelessWidget {
 
     complete = false;
   }
+}
+
+Widget buildContent(List<Map<String, dynamic>> contentBlocks) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: contentBlocks.map((block) {
+      switch (block['type']) {
+        case 'text':
+          return Text(block['data'], style: TextStyle(fontSize: 16));
+        case 'formula':
+        // return Math.tex(block['data'], textStyle: TextStyle(fontSize: 20));
+        // return LaTexT(laTeXCode: Text("\\alpha"));
+        case 'image':
+          return Image.network(block['data']);
+        default:
+          return SizedBox();
+      }
+    }).toList(),
+  );
 }

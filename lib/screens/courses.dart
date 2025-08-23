@@ -1,6 +1,7 @@
 //import 'package:aplication_algebra_lineal/widgets/buttons.dart';
 
 import 'package:flutter/material.dart';
+// import 'package:latext/latext.dart';
 import 'package:quickalert/quickalert.dart';
 
 import '../colecciones/cursos.dart';
@@ -148,6 +149,7 @@ class _CourseScreen extends State<CourseScreen> {
                         ),
                       ),
                     ),
+                    // LaTexT(laTeXCode: Text("\\alpha")),
                     SimpleButtonBorder(
                       text: 'Agregar Subtema',
                       onPressed: () => agregarSubtema(),
