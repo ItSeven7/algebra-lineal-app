@@ -12,6 +12,32 @@ import '../screens/account.dart';
 UserService userService = UserService();
 bool complete = true;
 
+String text = r'''
+                # Titulo del subtema
+
+                Texto normal
+                **Texto en negritas**
+                *Texto en cursiva*
+
+                ### Subtitulo
+                - Lista1
+                - Lista2
+
+                ```python
+                String nombre = "Ari";
+                ```
+
+                \[ E = mc^2 \quad \text{and} \quad F = ma \]
+
+                ### Images
+                Inline images can be embedded as follows:
+                ![Alt Text for Image](https://play-lh.googleusercontent.com/1-hPxafOxdYpYZEOKzNIkSP43HXCNftVJVttoo4ucl7rsMASXW3Xr6GlXURCubE1tA=w3840-h2160-rw)
+
+                Images can also be referenced with links:
+                [![Linked Image](https://via.placeholder.com/100 "Thumbnail")](https://via.placeholder.com/500 "Full Image")
+
+                ''';
+
 List<String> titulos = [
   '¡Bien hecho!',
   '¡Excelente!',
