@@ -1,15 +1,6 @@
 [
     {
         "titulo": "Propiedad conmutativa",
-        "contenido": [
-            {
-                "type": "texto",
-                "data": "La propiedad conmutativa dice que:"
-            },
-            {
-                "type": "formula",
-                "data": "a + b = b + a"
-            }
-        ]
+        "contenido": ""
     }
 ]

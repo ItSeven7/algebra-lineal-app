@@ -43,6 +43,7 @@ class Tema {
 
 class SubTema {
   final String titulo;
+  // final List<Map<String, dynamic>> contenido;
   final String contenido;
 
   SubTema({
@@ -52,7 +53,10 @@ class SubTema {
 
   factory SubTema.fromMap(Map<String, dynamic> data) {
     return SubTema(
-      titulo: data['titulo'],
+      titulo: data['titulo'] ?? '',
+      // contenido: (data['contenido'] as List<dynamic>)
+      //     .map((item) => Map<String, dynamic>.from(item))
+      //     .toList(),
       contenido: data['contenido'],
     );
   }
