@@ -1,17 +1,45 @@
+import 'package:aplication_algebra_lineal/models/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'package:quickalert/quickalert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:latext/latext.dart';
 
 import '../services/firebase_user_service.dart';
 import '../colecciones/cursos.dart';
 import '../widgets/buttons.dart';
 import '../screens/account.dart';
 
+import 'package:gpt_markdown/gpt_markdown.dart';
+
 UserService userService = UserService();
 bool complete = true;
+
+String text = r'''
+                # Titulo del subtema
+
+                Texto normal
+                **Texto en negritas**
+                *Texto en cursiva*
+
+                ### Subtitulo
+                - Lista1
+                - Lista2
+
+                ```python
+                String nombre = "Ari";
+                ```
+
+                \[ E = mc^2 \quad \text{and} \quad F = ma \]
+
+                ### Images
+                Inline images can be embedded as follows:
+                ![Alt Text for Image](https://play-lh.googleusercontent.com/1-hPxafOxdYpYZEOKzNIkSP43HXCNftVJVttoo4ucl7rsMASXW3Xr6GlXURCubE1tA=w3840-h2160-rw)
+
+                Images can also be referenced with links:
+                [![Linked Image](https://via.placeholder.com/100 "Thumbnail")](https://via.placeholder.com/500 "Full Image")
+
+                ''';
 
 List<String> titulos = [
   '¡Bien hecho!',
@@ -22,7 +50,7 @@ List<String> titulos = [
 ];
 
 // ignore: must_be_immutable
-class SubtopicScreen extends StatelessWidget {
+class SubtopicScreen extends StatefulWidget {
   int index;
   String cursoId;
   String unidadId;
@@ -42,6 +70,11 @@ class SubtopicScreen extends StatelessWidget {
       required this.subtema});
 
   @override
+  State<SubtopicScreen> createState() => _SubtopicScreenState();
+}
+
+class _SubtopicScreenState extends State<SubtopicScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -51,31 +84,36 @@ class SubtopicScreen extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: Text('Tema $numeroTema.${index + 1}',
+        centerTitle: true,
+        title: Text('Tema ${widget.numeroTema}.${widget.index + 1}',
             style: TextStyle(fontSize: 16)),
-        leadingWidth: 33,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Text(subtema.titulo), buildContent(subtema.contenido)],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SimpleButtonBorder(
-                  onPressed: () => _setSubtopicComplete(context),
-                  text: 'Marcar como completado',
+      body: ListView.builder(
+        padding: EdgeInsets.all(14),
+        physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        itemCount: 1,
+        itemBuilder: (context, index) {
+          return Column(
+            spacing: 33,
+            children: [
+              SelectionArea(
+                child: GptMarkdown(
+                  widget.subtema.contenido,
+                  style: AppTextStyles.bodyBlack,
                 ),
-              ],
-            )
-          ],
-        ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SimpleButtonBorder(
+                    onPressed: () => _setSubtopicComplete(context),
+                    text: 'Marcar como completado',
+                  ),
+                ],
+              )
+            ],
+          );
+        },
       ),
     );
   }
@@ -84,8 +122,8 @@ class SubtopicScreen extends StatelessWidget {
     final userFirebase = FirebaseAuth.instance.currentUser;
 
     userService
-        .setSubtopicComplete(
-            usuario, userFirebase!.uid, cursoId, unidadId, temaId, index)
+        .setSubtopicComplete(usuario, userFirebase!.uid, widget.cursoId,
+            widget.unidadId, widget.temaId, widget.index)
         .then((_) {
       complete = true;
     });

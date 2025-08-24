@@ -59,8 +59,7 @@ class _MyAppState extends State<MyApp> {
                 temaId: '',
                 numeroTema: 0,
                 nombreTema: '',
-                subtema:
-                    SubTema(titulo: '', contenido: List.empty(growable: true))),
+                subtema: SubTema(titulo: '', contenido: '')),
             '/quiz': (context) => QuizScreen(nombreUnidad: ''),
           },
         );
@@ -95,14 +94,15 @@ ThemeData buildTheme(AppColorTheme theme) {
         foregroundColor: ColorsUI.backgroundColor,
       ),
     ),
-    cardTheme: const CardTheme(color: ColorsUI.backgroundColor, elevation: 2),
+    cardTheme:
+        const CardThemeData(color: ColorsUI.backgroundColor, elevation: 2),
     listTileTheme: const ListTileThemeData(
         titleTextStyle: AppTextStyles.cardTitle,
         subtitleTextStyle: AppTextStyles.cardSubtitle,
         leadingAndTrailingTextStyle: AppTextStyles.cardTrailing),
     expansionTileTheme:
         ExpansionTileThemeData(textColor: AppTextStyles.bodyBlack.color),
-    dialogTheme: const DialogTheme(
+    dialogTheme: const DialogThemeData(
         titleTextStyle: AppTextStyles.titleBlackDialog,
         contentTextStyle: AppTextStyles.bodyBlack),
     colorScheme: ColorScheme.fromSeed(
