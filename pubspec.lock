@@ -467,7 +467,10 @@ packages:
     source: hosted
     version: "0.7.6"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> daa02bb (Soporte Markdown para visualizar los subtemas)
   tuple:
     dependency: transitive
     description:
@@ -476,7 +479,10 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+<<<<<<< HEAD
 >>>>>>> add-markdown-format
+=======
+>>>>>>> daa02bb (Soporte Markdown para visualizar los subtemas)
   typed_data:
     dependency: transitive
     description:
@@ -544,7 +550,11 @@ packages:
 sdks:
   dart: ">=3.8.0-0 <4.0.0"
 <<<<<<< HEAD
+<<<<<<< HEAD
   flutter: ">=3.22.0"
 =======
   flutter: ">=3.29.0"
 >>>>>>> add-markdown-format
+=======
+  flutter: ">=3.29.0"
+>>>>>>> daa02bb (Soporte Markdown para visualizar los subtemas)

@@ -1,3 +1,4 @@
+import 'package:aplication_algebra_lineal/models/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -8,6 +9,8 @@ import '../services/firebase_user_service.dart';
 import '../colecciones/cursos.dart';
 import '../widgets/buttons.dart';
 import '../screens/account.dart';
+
+import 'package:gpt_markdown/gpt_markdown.dart';
 
 UserService userService = UserService();
 bool complete = true;
@@ -47,7 +50,7 @@ List<String> titulos = [
 ];
 
 // ignore: must_be_immutable
-class SubtopicScreen extends StatelessWidget {
+class SubtopicScreen extends StatefulWidget {
   int index;
   String cursoId;
   String unidadId;
@@ -67,6 +70,11 @@ class SubtopicScreen extends StatelessWidget {
       required this.subtema});
 
   @override
+  State<SubtopicScreen> createState() => _SubtopicScreenState();
+}
+
+class _SubtopicScreenState extends State<SubtopicScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -76,31 +84,36 @@ class SubtopicScreen extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: Text('Tema $numeroTema.${index + 1}',
+        centerTitle: true,
+        title: Text('Tema ${widget.numeroTema}.${widget.index + 1}',
             style: TextStyle(fontSize: 16)),
-        leadingWidth: 33,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Text(subtema.titulo), Text(subtema.contenido)],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SimpleButtonBorder(
-                  onPressed: () => _setSubtopicComplete(context),
-                  text: 'Marcar como completado',
+      body: ListView.builder(
+        padding: EdgeInsets.all(14),
+        physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        itemCount: 1,
+        itemBuilder: (context, index) {
+          return Column(
+            spacing: 33,
+            children: [
+              SelectionArea(
+                child: GptMarkdown(
+                  widget.subtema.contenido,
+                  style: AppTextStyles.bodyBlack,
                 ),
-              ],
-            )
-          ],
-        ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SimpleButtonBorder(
+                    onPressed: () => _setSubtopicComplete(context),
+                    text: 'Marcar como completado',
+                  ),
+                ],
+              )
+            ],
+          );
+        },
       ),
     );
   }
@@ -109,8 +122,8 @@ class SubtopicScreen extends StatelessWidget {
     final userFirebase = FirebaseAuth.instance.currentUser;
 
     userService
-        .setSubtopicComplete(
-            usuario, userFirebase!.uid, cursoId, unidadId, temaId, index)
+        .setSubtopicComplete(usuario, userFirebase!.uid, widget.cursoId,
+            widget.unidadId, widget.temaId, widget.index)
         .then((_) {
       complete = true;
     });
