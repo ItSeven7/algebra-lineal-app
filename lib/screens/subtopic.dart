@@ -22,9 +22,6 @@ String text = r'''
                 **Texto en negritas**
                 *Texto en cursiva*
 
-                ### Subtitulo
-                - Lista1
-                - Lista2
 
                 ```python
                 String nombre = "Ari";
