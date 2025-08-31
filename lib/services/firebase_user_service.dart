@@ -69,8 +69,8 @@ class UserService {
 
         // Subtemas del contenido (cantidad actual)
         final subtemasSnap =
-            await temaDoc.reference.collection('sub_temas').get();
-        final subtemasCount = subtemasSnap.size + 1;
+            await temaDoc.reference.collection('subtemas').get();
+        final subtemasCount = subtemasSnap.size;
 
         // Referencia al progreso del usuario
         final progresoTemaRef = firestore
