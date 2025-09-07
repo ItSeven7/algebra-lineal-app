@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../screens/account.dart';
 import '../colecciones/usuarios.dart';
+import '../colecciones/cursos.dart';
 import '../models/text_styles.dart';
 import '../services/firebase_user_service.dart';
 import '../widgets/cards.dart';
-import '../colecciones/cursos.dart';
-import '../screens/account.dart';
 
 UserService userService = UserService();
 Usuario? user = usuario;
@@ -57,8 +57,9 @@ class _TopicScreenState extends State<TopicScreen> {
           },
         ),
         title: ListTile(
-            trailing: Text('Unidad ${widget.numeroUnidad}',
-                style: AppTextStyles.subHeader)),
+          trailing: Text('Unidad ${widget.numeroUnidad}',
+              style: AppTextStyles.subHeader),
+        ),
       ),
       body: Scaffold(
         appBar: AppBar(

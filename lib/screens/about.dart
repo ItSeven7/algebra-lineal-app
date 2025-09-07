@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../models/text_styles.dart';
 
 class AboutPage extends StatelessWidget {
@@ -57,7 +58,7 @@ class AboutPage extends StatelessWidget {
       ),
       bottomSheet: const Padding(
         padding: EdgeInsets.only(bottom: 20),
-        child: Text('Versión: 1.0.0',
+        child: Text('Versión: 1.1.3',
             textAlign: TextAlign.center,
             style: AppTextStyles.bodyBlack,
             overflow: TextOverflow.visible),

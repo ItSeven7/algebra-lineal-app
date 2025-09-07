@@ -1,9 +1,10 @@
-import 'package:aplication_algebra_lineal/screens/account.dart';
-import 'package:aplication_algebra_lineal/screens/topics.dart';
-import 'package:aplication_algebra_lineal/services/firebase_user_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../screens/account.dart';
+import '../screens/topics.dart';
+import '../services/firebase_user_service.dart';
 import '../colecciones/cursos.dart';
 import '../colecciones/usuarios.dart';
 import '../widgets/cards.dart';
@@ -45,16 +46,17 @@ class _UnitScreenState extends State<UnitScreen> {
     //final textStyles = AppTextStyles(Theme.of(context));
     return Scaffold(
       appBar: AppBar(
-          toolbarHeight: 40,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              Navigator.pop(context); // Abre el drawer
-            },
-          ),
-          title: ListTile(
-              trailing:
-                  Text(widget.nombreCurso, style: AppTextStyles.subHeader))),
+        toolbarHeight: 40,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: ListTile(
+          trailing: Text(widget.nombreCurso, style: AppTextStyles.subHeader),
+        ),
+      ),
       body: Scaffold(
         appBar: AppBar(
           toolbarHeight: 33,

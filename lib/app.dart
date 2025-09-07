@@ -1,4 +1,3 @@
-import 'package:aplication_algebra_lineal/screens/quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,10 +8,13 @@ import './screens/account.dart';
 import './screens/progress.dart';
 import './screens/topics.dart';
 import './screens/units.dart';
+import './screens/quiz.dart';
+import './screens/subtopic.dart';
 
 import './providers/theme_provider.dart';
+
 import './colecciones/cursos.dart';
-import './screens/subtopic.dart';
+
 import './models/color_themes.dart';
 import './models/text_styles.dart';
 

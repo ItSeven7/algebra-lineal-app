@@ -1,5 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../colecciones/usuarios.dart';
@@ -79,7 +80,9 @@ class _ProgressScreen extends State<ProgressScreen> {
             )
           : Center(
               child: LoadingAnimationWidget.threeArchedCircle(
-                  color: textStyles.header.color!.withOpacity(0.6), size: 40)),
+              color: textStyles.header.color!.withValues(alpha: 0.6),
+              size: 40,
+            )),
     );
   }
 }

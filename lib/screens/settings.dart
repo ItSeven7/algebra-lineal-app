@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../providers/theme_provider.dart';
 import '../models/color_themes.dart';
 import '../models/text_styles.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -57,8 +57,9 @@ void _showThemeDialog(BuildContext context, ThemeNotifier themeNotifier) {
               return ListTile(
                 leading: CircleAvatar(backgroundColor: color),
                 titleTextStyle: AppTextStyles.bodyBlack,
-                title: Text(getNombreColor(
-                    theme.name)), // O usa una función para nombres legibles
+                title: Text(
+                  getNombreColor(theme.name),
+                ),
                 onTap: () {
                   themeNotifier.updateTheme(theme);
                   saveUserColor(theme);

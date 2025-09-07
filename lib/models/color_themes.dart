@@ -1,4 +1,3 @@
-// color_themes.dart
 import 'package:flutter/material.dart';
 
 enum AppColorTheme {

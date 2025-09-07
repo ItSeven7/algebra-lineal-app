@@ -1,10 +1,10 @@
-import 'package:aplication_algebra_lineal/colecciones/usuarios.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:quickalert/quickalert.dart';
 
+import '../colecciones/usuarios.dart';
 import '../models/text_styles.dart';
 import '../widgets/forms.dart';
 import '../widgets/buttons.dart';
@@ -141,13 +141,6 @@ class _AccountScreen extends State<AccountScreen> {
     }
 
     complete = false;
-
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //       content: Text(_textoSnackBar.text),
-    //       duration: const Duration(milliseconds: 1250)),
-    // );
-    // _textoSnackBar.text = 'Cambios guardados correctamente';
   }
 
   Future<void> _cargarDatosUsuario() async {

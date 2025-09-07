@@ -1,8 +1,8 @@
-import 'package:aplication_algebra_lineal/colecciones/cursos.dart';
-import 'package:aplication_algebra_lineal/colecciones/usuarios.dart';
-import 'package:aplication_algebra_lineal/screens/subtopic.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/subtopic.dart';
+import '../colecciones/cursos.dart';
+import '../colecciones/usuarios.dart';
 import '../models/text_styles.dart';
 
 // Para mostrar el curso

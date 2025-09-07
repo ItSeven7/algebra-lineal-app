@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../models/text_styles.dart';
+
+import '../models/text_styles.dart';
 
 class SimpleForm extends StatelessWidget {
   final String labelText;

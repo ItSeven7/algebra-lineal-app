@@ -1,19 +1,15 @@
-//import 'package:aplication_algebra_lineal/widgets/buttons.dart';
-
 import 'package:flutter/material.dart';
-// import 'package:latext/latext.dart';
-import 'package:quickalert/quickalert.dart';
-
-import '../colecciones/cursos.dart';
-import '../models/color_themes.dart';
-import '../models/text_styles.dart';
-import '../widgets/buttons.dart';
-import '../widgets/cards.dart';
-import '../screens/units.dart';
-import '../services/firebase_utils_service.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:quickalert/quickalert.dart';
+
+import '../screens/units.dart';
+import '../services/firebase_utils_service.dart';
+import '../colecciones/cursos.dart';
+import '../widgets/cards.dart';
+import '../models/color_themes.dart';
+import '../models/text_styles.dart';
 
 UtilService utilService = UtilService();
 
@@ -29,7 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         icon: const Icon(Icons.menu, color: Colors.white, size: 26),
         onPressed: () {
-          Scaffold.of(context).openDrawer(); // Abre el drawer
+          Scaffold.of(context).openDrawer();
         },
       ),
       title: const Text('AlGeneal'),
@@ -149,25 +145,17 @@ class _CourseScreen extends State<CourseScreen> {
                         ),
                       ),
                     ),
-                    // LaTexT(laTeXCode: Text("\\alpha")),
-                    SimpleButtonBorder(
-                      text: 'Agregar Subtema',
-                      onPressed: () => agregarSubtema(),
-                    )
                   ],
                 ),
               ),
             )
           : Center(
               child: LoadingAnimationWidget.threeArchedCircle(
-                  color: textStyles.header.color!.withOpacity(0.6), size: 40)),
+                  color: textStyles.header.color!.withValues(alpha: 0.6),
+                  size: 40)),
       backgroundColor: ColorsUI.backgroundColor,
     );
   }
-}
-
-Future<void> agregarSubtema() async {
-  //utilService.agregarSub();
 }
 
 void showDialogAlert(BuildContext context) {

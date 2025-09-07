@@ -1,47 +1,20 @@
-import 'package:aplication_algebra_lineal/models/text_styles.dart';
-import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:flutter/material.dart';
 
-import 'package:quickalert/quickalert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:quickalert/quickalert.dart';
+import 'package:gpt_markdown/gpt_markdown.dart';
 
+import '../screens/account.dart';
+import '../models/text_styles.dart';
 import '../services/firebase_user_service.dart';
 import '../colecciones/cursos.dart';
 import '../widgets/buttons.dart';
-import '../screens/account.dart';
-
-import 'package:gpt_markdown/gpt_markdown.dart';
 
 UserService userService = UserService();
 bool complete = true;
 
-String text = r'''
-                # Titulo del subtema
-
-                Texto normal
-                **Texto en negritas**
-                *Texto en cursiva*
-
-                ### Subtitulo
-                - Lista1
-                - Lista2
-
-                ```python
-                String nombre = "Ari";
-                ```
-
-                \[ E = mc^2 \quad \text{and} \quad F = ma \]
-
-                ### Images
-                Inline images can be embedded as follows:
-                ![Alt Text for Image](https://play-lh.googleusercontent.com/1-hPxafOxdYpYZEOKzNIkSP43HXCNftVJVttoo4ucl7rsMASXW3Xr6GlXURCubE1tA=w3840-h2160-rw)
-
-                Images can also be referenced with links:
-                [![Linked Image](https://via.placeholder.com/100 "Thumbnail")](https://via.placeholder.com/500 "Full Image")
-
-                ''';
-
-List<String> titulos = [
+List<String> frasesMotivacion = [
   '¡Bien hecho!',
   '¡Excelente!',
   '¡Buen trabajo!',
@@ -135,7 +108,7 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
         borderRadius: 7,
         type: QuickAlertType.success,
         confirmBtnColor: Colors.green,
-        title: titulos[Random().nextInt(5)],
+        title: frasesMotivacion[Random().nextInt(5)],
         text: 'Subtema completado, sigue así',
         confirmBtnText: 'Continuar',
       );
