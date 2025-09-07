@@ -65,6 +65,7 @@ class CardUnidad extends StatelessWidget {
   final String resumen;
   final int totalTemas;
   final VoidCallback onTap;
+  final UnidadU unidadU;
 
   const CardUnidad({
     super.key,
@@ -73,6 +74,7 @@ class CardUnidad extends StatelessWidget {
     required this.resumen,
     required this.totalTemas,
     required this.onTap,
+    required this.unidadU,
   });
 
   @override
@@ -101,7 +103,7 @@ class CardUnidad extends StatelessWidget {
                 contentPadding: const EdgeInsets.all(0),
                 title: Text('Unidad $unidad'),
                 subtitle: Text(nombre),
-                trailing: Text('0/$totalTemas'),
+                trailing: Text('${temasCompletados(unidadU)}/$totalTemas'),
               ),
               subtitle: Center(
                 child: Text(resumen, style: AppTextStyles.bodyBlack),
@@ -287,6 +289,16 @@ class UnidadProgresoTile extends StatelessWidget {
       ),
     );
   }
+}
+
+int temasCompletados(UnidadU unidad) {
+  int numeroTemasCompletados = 0;
+  for (var tema in unidad.temas) {
+    if (esTemaCompleto(tema.subtemas)) {
+      numeroTemasCompletados++;
+    }
+  }
+  return numeroTemasCompletados;
 }
 
 bool esTemaCompleto(List<bool> subtemas) {
