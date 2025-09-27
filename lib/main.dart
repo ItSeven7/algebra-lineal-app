@@ -13,7 +13,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await Firebase.initializeApp();
 
   final themeUser = await UserService().obtenerTemaDesdeFirestore();
 
