@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UtilService {
-  agregarSub() {
+  void agregarSub() {
     addSubtopic('curso_1', 'unidad_1', 'tema_1', 'subtema_1');
   }
 }
