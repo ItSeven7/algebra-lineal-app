@@ -8,7 +8,7 @@ import 'package:gpt_markdown/gpt_markdown.dart';
 import '../screens/account.dart';
 import '../models/text_styles.dart';
 import '../services/firebase_user_service.dart';
-import '../colecciones/cursos.dart';
+import '../colecciones/curso.dart';
 import '../widgets/buttons.dart';
 
 UserService userService = UserService();

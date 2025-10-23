@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../screens/subtopic.dart';
-import '../colecciones/cursos.dart';
-import '../colecciones/usuarios.dart';
+import '../colecciones/curso.dart';
+import '../colecciones/usuario.dart';
 import '../models/text_styles.dart';
 
 // Para mostrar el curso

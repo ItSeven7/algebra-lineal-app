@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../screens/account.dart';
-import '../colecciones/usuarios.dart';
-import '../colecciones/cursos.dart';
+import '../colecciones/usuario.dart';
+import '../colecciones/curso.dart';
 import '../models/text_styles.dart';
 import '../services/firebase_user_service.dart';
 import '../widgets/cards.dart';

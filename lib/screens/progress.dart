@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../colecciones/usuarios.dart';
+import '../colecciones/usuario.dart';
 import '../services/firebase_user_service.dart';
 import '../widgets/cards.dart';
 import '../models/text_styles.dart';

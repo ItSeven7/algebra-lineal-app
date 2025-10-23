@@ -6,7 +6,7 @@ import 'package:quickalert/quickalert.dart';
 
 import '../screens/units.dart';
 import '../services/firebase_utils_service.dart';
-import '../colecciones/cursos.dart';
+import '../colecciones/curso.dart';
 import '../widgets/cards.dart';
 import '../models/color_themes.dart';
 import '../models/text_styles.dart';

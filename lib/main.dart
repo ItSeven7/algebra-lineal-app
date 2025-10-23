@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'providers/user_provider.dart';
 import 'services/firebase_user_service.dart';
 import 'providers/theme_provider.dart';
 import 'firebase_options.dart';
@@ -16,10 +17,14 @@ void main() async {
 
   final themeUser = await UserService().obtenerTemaDesdeFirestore();
 
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeNotifier(themeUser),
-      child: const MyApp(),
-    ),
-  );
+  final userProvider = UserProvider();
+  await userProvider.refresh();
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => ThemeNotifier(themeUser)),
+      ChangeNotifierProvider(create: (_) => userProvider),
+    ],
+    child: const MyApp(),
+  ));
 }

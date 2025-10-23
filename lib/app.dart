@@ -13,7 +13,7 @@ import './screens/subtopic.dart';
 
 import './providers/theme_provider.dart';
 
-import './colecciones/cursos.dart';
+import 'colecciones/curso.dart';
 
 import './models/color_themes.dart';
 import './models/text_styles.dart';

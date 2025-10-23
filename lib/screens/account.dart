@@ -4,7 +4,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:quickalert/quickalert.dart';
 
-import '../colecciones/usuarios.dart';
+import '../colecciones/usuario.dart';
 import '../models/text_styles.dart';
 import '../widgets/forms.dart';
 import '../widgets/buttons.dart';
