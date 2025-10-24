@@ -82,6 +82,7 @@ class _UnitScreenState extends State<UnitScreen> {
                                         numeroUnidad: index + 1,
                                         nombreUnidad: unidad.nombre,
                                         temas: unidad.temas,
+                                        userProvider: userProvider,
                                       )));
                         },
                       );

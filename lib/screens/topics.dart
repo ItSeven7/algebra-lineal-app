@@ -1,16 +1,13 @@
+import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-
-import '../screens/account.dart';
 import '../colecciones/usuario.dart';
 import '../colecciones/curso.dart';
 import '../models/text_styles.dart';
-import '../services/firebase_user_service.dart';
 import '../widgets/cards.dart';
 
-UserService userService = UserService();
-Usuario? user = usuario;
+//UserService userService = UserService();
+//Usuario? user = usuario;
 
 // ignore: must_be_immutable
 class TopicScreen extends StatefulWidget {
@@ -19,6 +16,7 @@ class TopicScreen extends StatefulWidget {
   int numeroUnidad;
   String nombreUnidad;
   List<Tema> temas;
+  UserProvider? userProvider;
 
   TopicScreen({
     super.key,
@@ -27,6 +25,7 @@ class TopicScreen extends StatefulWidget {
     required this.numeroUnidad,
     required this.nombreUnidad,
     required this.temas,
+    required this.userProvider,
   });
 
   @override
@@ -35,18 +34,7 @@ class TopicScreen extends StatefulWidget {
 
 class _TopicScreenState extends State<TopicScreen> {
   @override
-  void initState() {
-    super.initState();
-    _cargarDatosUsuario().then((data) {
-      setState(() {
-        user = data;
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 3));
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
@@ -68,40 +56,31 @@ class _TopicScreenState extends State<TopicScreen> {
           title: Text(widget.nombreUnidad,
               style: AppTextStyles.subHeaderWithOpacity),
         ),
-        body: RefreshIndicator(
-          displacement: 3,
-          onRefresh: () async {
-            await _cargarDatosUsuario().then((data) {
-              setState(() {
-                user = data;
-              });
-            });
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: ListView.builder(
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: widget.temas.length,
-              itemBuilder: (context, index) {
-                final tema = widget.temas[index];
-                return CardTema(
-                  cursoId: widget.cursoId,
-                  unidadId: widget.unidadId,
-                  temaId: tema.id,
-                  numero: index + 1,
-                  nombre: tema.nombre,
-                  subtemas: tema.subtemas,
-                  completados: _obtenerListaSubtemas(tema.id),
-                );
-              },
-            ),
+        body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemCount: widget.temas.length,
+            itemBuilder: (context, index) {
+              final tema = widget.temas[index];
+              return CardTema(
+                cursoId: widget.cursoId,
+                unidadId: widget.unidadId,
+                temaId: tema.id,
+                numero: index + 1,
+                nombre: tema.nombre,
+                subtemas: tema.subtemas,
+                completados: _obtenerListaSubtemas(widget.userProvider!.usuario, tema.id),
+                userProvider: widget.userProvider,
+              );
+            },
           ),
         ),
       ),
     );
   }
 
-  List<bool> _obtenerListaSubtemas(String temaId) {
+  List<bool> _obtenerListaSubtemas(Usuario? user, String temaId) {
     List<bool> listaSubtemas = [];
 
     for (var curso in user!.progreso.cursos) {
@@ -121,10 +100,10 @@ class _TopicScreenState extends State<TopicScreen> {
     return listaSubtemas;
   }
 
-  Future<Usuario> _cargarDatosUsuario() async {
-    final userFirebase = FirebaseAuth.instance.currentUser;
-    final data = await userService.getUserData(userFirebase!.uid);
+  // Future<Usuario> _cargarDatosUsuario() async {
+  //   final userFirebase = FirebaseAuth.instance.currentUser;
+  //   final data = await userService.getUserData(userFirebase!.uid);
 
-    return data;
-  }
+  //   return data;
+  // }
 }

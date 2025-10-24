@@ -1,3 +1,4 @@
+import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/subtopic.dart';
@@ -126,6 +127,7 @@ class CardTema extends StatelessWidget {
   final String nombre;
   final List<SubTema> subtemas;
   final List<bool> completados;
+  final UserProvider? userProvider;
 
   const CardTema({
     super.key,
@@ -136,6 +138,7 @@ class CardTema extends StatelessWidget {
     required this.nombre,
     required this.subtemas,
     required this.completados,
+    required this.userProvider,
   });
 
   @override
@@ -173,6 +176,7 @@ class CardTema extends StatelessWidget {
                                 numeroTema: numero,
                                 nombreTema: nombre,
                                 subtema: subtemas[index],
+                                userProvider: userProvider,
                               )));
                 },
                 titulo: subtemas[index].titulo,

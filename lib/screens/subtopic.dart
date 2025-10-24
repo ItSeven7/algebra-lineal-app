@@ -1,11 +1,11 @@
 import 'dart:math';
+import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:gpt_markdown/gpt_markdown.dart';
 
-import '../screens/account.dart';
 import '../models/text_styles.dart';
 import '../services/firebase_user_service.dart';
 import '../colecciones/curso.dart';
@@ -31,16 +31,19 @@ class SubtopicScreen extends StatefulWidget {
   int numeroTema;
   String nombreTema;
   SubTema subtema;
+  UserProvider? userProvider;
 
-  SubtopicScreen(
-      {super.key,
-      required this.cursoId,
-      required this.unidadId,
-      required this.temaId,
-      required this.index,
-      required this.numeroTema,
-      required this.nombreTema,
-      required this.subtema});
+  SubtopicScreen({
+    super.key,
+    required this.cursoId,
+    required this.unidadId,
+    required this.temaId,
+    required this.index,
+    required this.numeroTema,
+    required this.nombreTema,
+    required this.subtema,
+    required this.userProvider,
+  });
 
   @override
   State<SubtopicScreen> createState() => _SubtopicScreenState();
@@ -79,7 +82,7 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SimpleButtonBorder(
-                    onPressed: () => _setSubtopicComplete(context),
+                    onPressed: () => _setSubtopicComplete(context, widget.userProvider),
                     text: 'Marcar como completado',
                   ),
                 ],
@@ -91,11 +94,12 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
     );
   }
 
-  void _setSubtopicComplete(BuildContext context) {
+  void _setSubtopicComplete(BuildContext context, UserProvider? userProvider) {
     final userFirebase = FirebaseAuth.instance.currentUser;
+    userProvider!.refresh();
 
     userService
-        .setSubtopicComplete(usuario, userFirebase!.uid, widget.cursoId,
+        .setSubtopicComplete(widget.userProvider!.usuario, userFirebase!.uid, widget.cursoId,
             widget.unidadId, widget.temaId, widget.index)
         .then((_) {
       complete = true;
