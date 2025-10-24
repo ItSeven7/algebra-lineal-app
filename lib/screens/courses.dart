@@ -5,13 +5,10 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quickalert/quickalert.dart';
 
 import '../screens/units.dart';
-import '../services/firebase_utils_service.dart';
 import '../colecciones/curso.dart';
 import '../widgets/cards.dart';
 import '../models/color_themes.dart';
 import '../models/text_styles.dart';
-
-UtilService utilService = UtilService();
 
 List<Curso> cursos = [];
 bool loadingIsComplete = false;

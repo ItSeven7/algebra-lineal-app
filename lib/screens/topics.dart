@@ -6,9 +6,6 @@ import '../colecciones/curso.dart';
 import '../models/text_styles.dart';
 import '../widgets/cards.dart';
 
-//UserService userService = UserService();
-//Usuario? user = usuario;
-
 // ignore: must_be_immutable
 class TopicScreen extends StatefulWidget {
   String cursoId;
@@ -99,11 +96,4 @@ class _TopicScreenState extends State<TopicScreen> {
 
     return listaSubtemas;
   }
-
-  // Future<Usuario> _cargarDatosUsuario() async {
-  //   final userFirebase = FirebaseAuth.instance.currentUser;
-  //   final data = await userService.getUserData(userFirebase!.uid);
-
-  //   return data;
-  // }
 }

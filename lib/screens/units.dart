@@ -10,9 +10,6 @@ import '../colecciones/usuario.dart';
 import '../widgets/cards.dart';
 import '../models/text_styles.dart';
 
-//UserService userService = UserService();
-//Usuario? user = usuario;
-
 // ignore: must_be_immutable
 class UnitScreen extends StatefulWidget {
   String cursoId;
@@ -110,13 +107,7 @@ class _UnitScreenState extends State<UnitScreen> {
         }
       }
     }
+
     return aux;
   }
-
-  // Future<Usuario> _cargarDatosUsuario() async {
-  //   final userFirebase = FirebaseAuth.instance.currentUser;
-  //   final data = await userService.getUserData(userFirebase!.uid);
-
-  //   return data;
-  // }
 }

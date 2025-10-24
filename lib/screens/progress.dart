@@ -1,21 +1,13 @@
 import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
-//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
-//import '../colecciones/usuario.dart';
-//import '../services/firebase_user_service.dart';
 import '../widgets/cards.dart';
 import '../models/text_styles.dart';
 
-//UserService userService = UserService();
-//List<CursoU> cursos = [];
-//Progreso progresoUsuario = Progreso(cursos: cursos);
-
 List<String> nombreCurso = ['Álgebra Lineal'];
-//bool loadingIsComplete = false;
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -25,23 +17,6 @@ class ProgressScreen extends StatefulWidget {
 }
 
 class _ProgressScreen extends State<ProgressScreen> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   cargarProgresoUsuario().then((data) {
-  //     if (!mounted) return;
-  //     setState(() {
-  //       progresoUsuario = data;
-  //       loadingIsComplete = true;
-  //     });
-  //   });
-  // }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   loadingIsComplete = false;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -84,17 +59,3 @@ class _ProgressScreen extends State<ProgressScreen> {
     );
   }
 }
-
-// Future<Progreso> cargarProgresoUsuario() async {
-//   final userFirebase = FirebaseAuth.instance.currentUser;
-//   final data = await userService.getUserData(userFirebase!.uid);
-
-//   progresoUsuario = data.progreso;
-
-//   debugPrint(progresoUsuario.cursos.first.unidades.first.id);
-
-//   return data.progreso;
-// }
-
-
-// HACER EL CONSUMER
