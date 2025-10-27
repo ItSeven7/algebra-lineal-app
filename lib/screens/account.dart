@@ -1,23 +1,26 @@
+import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
+import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 
-import '../colecciones/usuario.dart';
+//import '../colecciones/usuario.dart';
 import '../models/text_styles.dart';
 import '../widgets/forms.dart';
 import '../widgets/buttons.dart';
 import '../services/firebase_user_service.dart';
 
 UserService userService = UserService();
-Usuario? usuario;
+//Usuario? usuario;
 bool complete = true;
 
 final TextEditingController _nameController = TextEditingController();
 final TextEditingController _lastNameController = TextEditingController();
 final TextEditingController _emailController = TextEditingController();
 
+// ignore: must_be_immutable
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
 
@@ -26,10 +29,21 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreen extends State<AccountScreen> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _cargarDatosUsuario();
+  // }
+
   @override
-  void initState() {
-    super.initState();
-    _cargarDatosUsuario();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final user = Provider.of<UserProvider>(context).usuario;
+    if (user != null) {
+      _nameController.text = user.nombre;
+      _lastNameController.text = user.apellidos;
+      _emailController.text = user.email;
+    }
   }
 
   @override
@@ -96,7 +110,7 @@ class _AccountScreen extends State<AccountScreen> {
         final auth = FirebaseAuth.instance;
         FirebaseUIAuth.signOut(context: context, auth: auth);
 
-        usuario = null;
+        //usuario = null;
         _nameController.text = '';
         _lastNameController.text = '';
         _emailController.text = '';
@@ -143,17 +157,17 @@ class _AccountScreen extends State<AccountScreen> {
     complete = false;
   }
 
-  Future<void> _cargarDatosUsuario() async {
-    final userFirebase = FirebaseAuth.instance.currentUser;
-    final data = await userService.getUserData(userFirebase!.uid);
+  // Future<void> _cargarDatosUsuario() async {
+  //   // final userFirebase = FirebaseAuth.instance.currentUser;
+  //   // final data = await userService.getUserData(userFirebase!.uid);
 
-    if (!mounted) return; // Evita errores si la screen fue cerrada
+  //   if (!mounted) return; // Evita errores si la screen fue cerrada
 
-    setState(() {
-      usuario = data;
-      _nameController.text = usuario!.nombre;
-      _lastNameController.text = usuario!.apellidos;
-      _emailController.text = usuario!.email;
-    });
-  }
+  //   setState(() {
+  //     // usuario = data;
+  //     // _nameController.text = usuario!.nombre;
+  //     // _lastNameController.text = usuario!.apellidos;
+  //     // _emailController.text = usuario!.email;
+  //   });
+  // }
 }

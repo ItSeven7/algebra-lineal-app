@@ -1,3 +1,4 @@
+import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +35,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     //final themeNotifier = Provider.of<ThemeNotifier>(context);
+    //final userProvider = Provider.of<UserProvider>(context);
 
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, _) {
