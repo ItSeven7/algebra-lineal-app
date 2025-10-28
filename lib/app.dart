@@ -1,11 +1,9 @@
-import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './screens/auth_gate.dart';
 import './screens/settings.dart';
 import './screens/about.dart';
-import './screens/account.dart';
 import './screens/progress.dart';
 import './screens/topics.dart';
 import './screens/units.dart';
@@ -30,11 +28,11 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     super.dispose();
+    debugPrint("FIN!");
   }
 
   @override
   Widget build(BuildContext context) {
-    //final themeNotifier = Provider.of<ThemeNotifier>(context);
     //final userProvider = Provider.of<UserProvider>(context);
 
     return Consumer<ThemeNotifier>(
@@ -46,8 +44,7 @@ class _MyAppState extends State<MyApp> {
           routes: {
             '/settings': (context) => const SettingsPage(),
             '/about': (context) => const AboutPage(),
-            '/account': (context) => const AccountScreen(),
-            '/progress': (context) => const ProgressScreen(),
+            '/progress': (context) => ProgressScreen(),
             '/units': (context) =>
                 UnitScreen(cursoId: '', nombreCurso: '', unidades: []),
             '/topics': (context) => TopicScreen(
@@ -55,8 +52,7 @@ class _MyAppState extends State<MyApp> {
                 unidadId: '',
                 nombreUnidad: '',
                 numeroUnidad: 0,
-                temas: [],
-                userProvider: null),
+                temas: []),
             '/subtopic': (context) => SubtopicScreen(
                   index: 0,
                   cursoId: '',

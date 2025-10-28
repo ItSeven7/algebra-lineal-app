@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,6 +9,7 @@ import '../models/text_styles.dart';
 import '../services/firebase_user_service.dart';
 import '../colecciones/curso.dart';
 import '../widgets/buttons.dart';
+import '../providers/user_provider.dart';
 
 UserService userService = UserService();
 bool complete = true;
@@ -82,7 +82,8 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SimpleButtonBorder(
-                    onPressed: () => _setSubtopicComplete(context, widget.userProvider),
+                    onPressed: () =>
+                        _setSubtopicComplete(context, widget.userProvider!),
                     text: 'Marcar como completado',
                   ),
                 ],
@@ -94,16 +95,39 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
     );
   }
 
-  void _setSubtopicComplete(BuildContext context, UserProvider? userProvider) {
-    final userFirebase = FirebaseAuth.instance.currentUser;
-    userProvider!.refresh();
+  void _setSubtopicComplete(BuildContext context, UserProvider userProvider) {
+    for (var curso in userProvider.usuario!.progreso.cursos) {
+      if (curso.id == widget.cursoId) {
+        for (var unidad in curso.unidades) {
+          if (unidad.id == widget.unidadId) {
+            for (var tema in unidad.temas) {
+              if (tema.id == widget.temaId) {
+                if (tema.subtemas[widget.index] != true) {
+                  debugPrint("INDEX: ${widget.index}");
+                  debugPrint("SUBTEMAS: ${tema.subtemas}");
 
-    userService
-        .setSubtopicComplete(widget.userProvider!.usuario, userFirebase!.uid, widget.cursoId,
-            widget.unidadId, widget.temaId, widget.index)
-        .then((_) {
-      complete = true;
-    });
+                  final uid = FirebaseAuth.instance.currentUser!.uid;
+
+                  userService
+                      .setSubtopicComplete(
+                          widget.userProvider!.usuario,
+                          uid,
+                          widget.cursoId,
+                          widget.unidadId,
+                          widget.temaId,
+                          widget.index)
+                      .then((_) {                    
+                  });
+
+                  userProvider.refresh();
+                }
+                complete = true;
+              }
+            }
+          }
+        }
+      }
+    }
 
     if (complete == true) {
       QuickAlert.show(

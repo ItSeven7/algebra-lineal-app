@@ -1,4 +1,3 @@
-import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -9,6 +8,7 @@ import '../colecciones/curso.dart';
 import '../colecciones/usuario.dart';
 import '../widgets/cards.dart';
 import '../models/text_styles.dart';
+import '../providers/user_provider.dart';
 
 // ignore: must_be_immutable
 class UnitScreen extends StatefulWidget {
@@ -68,7 +68,8 @@ class _UnitScreenState extends State<UnitScreen> {
                         nombre: unidad.nombre,
                         totalTemas: unidad.temas.length,
                         resumen: unidad.resumen,
-                        unidadU: _obtenerTemas(userProvider.usuario, unidad.id),
+                        unidadU: _obtenerTemas(
+                            userProvider.usuario, unidad.id),
                         onTap: () {
                           Navigator.push(
                               context,
@@ -79,7 +80,6 @@ class _UnitScreenState extends State<UnitScreen> {
                                         numeroUnidad: index + 1,
                                         nombreUnidad: unidad.nombre,
                                         temas: unidad.temas,
-                                        userProvider: userProvider,
                                       )));
                         },
                       );

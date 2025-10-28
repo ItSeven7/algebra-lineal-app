@@ -1,10 +1,11 @@
-import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../colecciones/usuario.dart';
 import '../colecciones/curso.dart';
 import '../models/text_styles.dart';
 import '../widgets/cards.dart';
+import '../providers/user_provider.dart';
 
 // ignore: must_be_immutable
 class TopicScreen extends StatefulWidget {
@@ -13,7 +14,6 @@ class TopicScreen extends StatefulWidget {
   int numeroUnidad;
   String nombreUnidad;
   List<Tema> temas;
-  UserProvider? userProvider;
 
   TopicScreen({
     super.key,
@@ -22,7 +22,6 @@ class TopicScreen extends StatefulWidget {
     required this.numeroUnidad,
     required this.nombreUnidad,
     required this.temas,
-    required this.userProvider,
   });
 
   @override
@@ -32,6 +31,8 @@ class TopicScreen extends StatefulWidget {
 class _TopicScreenState extends State<TopicScreen> {
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
@@ -67,8 +68,8 @@ class _TopicScreenState extends State<TopicScreen> {
                 numero: index + 1,
                 nombre: tema.nombre,
                 subtemas: tema.subtemas,
-                completados: _obtenerListaSubtemas(widget.userProvider!.usuario, tema.id),
-                userProvider: widget.userProvider,
+                completados: _obtenerListaSubtemas(userProvider.usuario, tema.id),
+                userProvider: userProvider,
               );
             },
           ),

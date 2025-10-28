@@ -25,14 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
     AccountScreen(),
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    actualizarProgreso().then((data) {
-      if (!mounted) return;
-      setState(() {});
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   actualizarProgreso().then((data) {
+  //     if (!mounted) return;
+  //     setState(() {});
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

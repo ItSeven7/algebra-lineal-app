@@ -64,6 +64,7 @@ class _CourseScreen extends State<CourseScreen> {
   Widget build(BuildContext context) {
     // Implementa los estilos de texto dinámicamente desde 'text_styles.dart'
     final textStyles = AppTextStyles(Theme.of(context));
+
     return Scaffold(
       appBar: const CustomAppBar(),
       drawer: Drawer(
