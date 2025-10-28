@@ -25,14 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
     AccountScreen(),
   ];
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   actualizarProgreso().then((data) {
-  //     if (!mounted) return;
-  //     setState(() {});
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    actualizarProgreso().then((data) {
+      if (!mounted) return;
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +73,31 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+/// Comprueba la key [upgrade]:
+/// Si es `true` crea una instancia de Firestore que lee, compara y completa
+/// los espacios faltantes del progreso del usuario respecto a la base de datos
+/// [cursos].
+/// 
+/// Si es `false` no crea dicha instancia y previene lecturas innecesarias de
+/// la base de datos.
+/// 
+/// De esta manera podemos controlar desde la base de datos el uso de esta función
+/// para actualizar los datos, cambiando el valor de una sola variable (1 lectura).
 Future<void> actualizarProgreso() async {
-  final user = FirebaseAuth.instance.currentUser;
+  var doc =
+      await FirebaseFirestore.instance.collection('ajustes').doc('keys').get();
+  final data = doc.data();
 
-  final cursosSnap =
-      await FirebaseFirestore.instance.collection('cursos').get();
-  for (var curso in cursosSnap.docs) {
-    await UserService().updateProgressUser(user!.uid.toString(), curso.id);
+  if (data!['upgrade'] == true) {
+    debugPrint("TRUE");
+
+    final user = FirebaseAuth.instance.currentUser;
+    final cursosSnap =
+        await FirebaseFirestore.instance.collection('cursos').get();
+    for (var curso in cursosSnap.docs) {
+      await UserService().updateProgressUser(user!.uid.toString(), curso.id);
+    }
   }
+
+  debugPrint("ACTUALIZAR PROGRESO");
 }
