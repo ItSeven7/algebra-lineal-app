@@ -68,8 +68,7 @@ class _UnitScreenState extends State<UnitScreen> {
                         nombre: unidad.nombre,
                         totalTemas: unidad.temas.length,
                         resumen: unidad.resumen,
-                        unidadU: _obtenerTemas(
-                            userProvider.usuario, unidad.id),
+                        unidadU: _obtenerTemas(userProvider.usuario, unidad.id),
                         onTap: () {
                           Navigator.push(
                               context,

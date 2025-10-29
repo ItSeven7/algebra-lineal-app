@@ -170,6 +170,8 @@ void showDialogAlert(BuildContext context) {
 }
 
 Future<List<Curso>> loadDataBase() async {
+  debugPrint("LOAD DATA BASE");
+
   final cursosSnap =
       await FirebaseFirestore.instance.collection('cursos').get();
 
