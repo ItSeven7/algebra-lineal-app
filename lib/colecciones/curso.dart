@@ -1,5 +1,4 @@
-// Clases para estructurar la información de los cursos en la app
-// Mapeados como en Firestore
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Curso {
   final String id;
@@ -11,8 +10,17 @@ class Curso {
     required this.id,
     required this.nombre,
     required this.descripcion,
-    required this.unidades,
+    this.unidades = const [],
   });
+
+  factory Curso.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return Curso(
+      id: doc.id,
+      nombre: data['nombre'] ?? '',
+      descripcion: data['descripcion'] ?? '',
+    );
+  }
 }
 
 class Unidad {
@@ -25,8 +33,17 @@ class Unidad {
     required this.id,
     required this.nombre,
     required this.resumen,
-    required this.temas,
+    this.temas = const [],
   });
+
+  factory Unidad.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return Unidad(
+      id: doc.id,
+      nombre: data['nombre'] ?? '',
+      resumen: data['resumen'] ?? '',
+    );
+  }
 }
 
 class Tema {
@@ -37,24 +54,35 @@ class Tema {
   Tema({
     required this.id,
     required this.nombre,
-    required this.subtemas,
+    this.subtemas = const [],
   });
+
+  factory Tema.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return Tema(
+      id: doc.id,
+      nombre: data['nombre'] ?? '',
+    );
+  }
 }
 
 class SubTema {
+  final String id;
   final String titulo;
-  // final List<Map<String, dynamic>> contenido;
   final String contenido;
 
   SubTema({
+    required this.id,
     required this.titulo,
     required this.contenido,
   });
 
-  factory SubTema.fromMap(Map<String, dynamic> data) {
+  factory SubTema.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
     return SubTema(
+      id: doc.id,
       titulo: data['titulo'] ?? '',
-      contenido: data['contenido'],
+      contenido: data['contenido'] ?? '',
     );
   }
 }

@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'providers/content_provider.dart';
 import 'providers/user_provider.dart';
-import 'services/firebase_user_service.dart';
 import 'providers/theme_provider.dart';
+import 'services/firebase_user_service.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -23,6 +24,7 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => ThemeNotifier(themeUser)),
+      ChangeNotifierProvider(create: (_) => ContentProvider()),
       ChangeNotifierProvider(create: (_) => userProvider),
     ],
     child: const MyApp(),

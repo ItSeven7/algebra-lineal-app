@@ -95,7 +95,7 @@ class _UnitScreenState extends State<UnitScreen> {
   }
 
   UnidadU _obtenerTemas(Usuario? user, String unidadId) {
-    UnidadU aux = UnidadU(id: "", temas: []);
+    UnidadU aux = UnidadU(id: unidadId, temas: []);
 
     for (var curso in user!.progreso.cursos) {
       if (curso.id == widget.cursoId) {

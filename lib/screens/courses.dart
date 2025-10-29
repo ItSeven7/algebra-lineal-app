@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 
+import '../providers/content_provider.dart';
 import '../screens/units.dart';
-import '../colecciones/curso.dart';
+//import '../colecciones/curso.dart';
 import '../widgets/cards.dart';
 import '../models/color_themes.dart';
 import '../models/text_styles.dart';
 
-List<Curso> cursos = [];
-bool loadingIsComplete = false;
+//List<Curso> cursos = [];
+//bool loadingIsComplete = false;
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -42,28 +43,39 @@ class CourseScreen extends StatefulWidget {
 }
 
 class _CourseScreen extends State<CourseScreen> {
-  @override
-  void initState() {
-    super.initState();
-    loadDataBase().then((data) {
-      if (!mounted) return;
-      setState(() {
-        cursos = data;
-        loadingIsComplete = true;
-      });
-    }).timeout(Duration(seconds: 5), onTimeout: () {});
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   loadDataBase().then((data) {
+  //     if (!mounted) return;
+  //     setState(() {
+  //       cursos = data;
+  //       loadingIsComplete = true;
+  //     });
+  //   }).timeout(Duration(seconds: 5), onTimeout: () {});
+  // }
 
-  @override
-  void dispose() {
-    super.dispose();
-    loadingIsComplete = false;
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   loadingIsComplete = false;
+  // }
 
   @override
   Widget build(BuildContext context) {
     // Implementa los estilos de texto dinámicamente desde 'text_styles.dart'
     final textStyles = AppTextStyles(Theme.of(context));
+    final contentProvider = Provider.of<ContentProvider>(context);
+    final curso = contentProvider.getCurso('curso_1');
+
+    if (curso == null) {
+      contentProvider.loadCurso('curso_1');
+      debugPrint("Curso: ${curso?.nombre}");
+      return Center(
+        child: LoadingAnimationWidget.threeArchedCircle(
+            color: textStyles.header.color!.withValues(alpha: 0.6), size: 40),
+      );
+    }
 
     return Scaffold(
       appBar: const CustomAppBar(),
@@ -96,61 +108,42 @@ class _CourseScreen extends State<CourseScreen> {
           ],
         ),
       ),
-      body: loadingIsComplete
-          ? RefreshIndicator(
-              displacement: 3,
-              onRefresh: () async {
-                await loadDataBase().then((data) {
-                  setState(() {
-                    cursos = data;
-                  });
-                });
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text(
+              'Cursos:',
+              style: AppTextStyles.cardSubtitle,
+            ),
+            Expanded(
+              child: Scrollbar(
+                child: ListView(
                   children: [
-                    const Text(
-                      'Cursos:',
-                      style: AppTextStyles.cardSubtitle,
-                    ),
-                    Expanded(
-                      child: Scrollbar(
-                        child: ListView.builder(
-                          physics: AlwaysScrollableScrollPhysics(
-                              parent: BouncingScrollPhysics()),
-                          itemCount: cursos.length,
-                          itemBuilder: (context, index) {
-                            final curso = cursos[index];
-                            return CardCourse(
-                              nombre: curso.nombre,
-                              descripcion: curso.descripcion,
-                              totalUnidades: curso.unidades.length,
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => UnitScreen(
-                                        cursoId: curso.id,
-                                        nombreCurso: curso.nombre,
-                                        unidades: curso.unidades),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ),
+                    CardCourse(
+                      nombre: curso.nombre,
+                      descripcion: curso.descripcion,
+                      totalUnidades: curso.unidades.length,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => UnitScreen(
+                                cursoId: curso.id,
+                                nombreCurso: curso.nombre,
+                                unidades: curso.unidades),
+                          ),
+                        );
+                      },
+                    )
                   ],
                 ),
               ),
-            )
-          : Center(
-              child: LoadingAnimationWidget.threeArchedCircle(
-                  color: textStyles.header.color!.withValues(alpha: 0.6),
-                  size: 40)),
+            ),
+          ],
+        ),
+      ),
       backgroundColor: ColorsUI.backgroundColor,
     );
   }
@@ -169,62 +162,62 @@ void showDialogAlert(BuildContext context) {
   );
 }
 
-Future<List<Curso>> loadDataBase() async {
-  debugPrint("LOAD DATA BASE");
+// Future<List<Curso>> loadDataBase() async {
+//   debugPrint("LOAD DATA BASE");
 
-  final cursosSnap =
-      await FirebaseFirestore.instance.collection('cursos').get();
+//   final cursosSnap =
+//       await FirebaseFirestore.instance.collection('cursos').get();
 
-  List<Curso> cursos = [];
+//   List<Curso> cursos = [];
 
-  for (var cursoDoc in cursosSnap.docs) {
-    final cursoId = cursoDoc.id;
-    final cursoData = cursoDoc.data();
+//   for (var cursoDoc in cursosSnap.docs) {
+//     final cursoId = cursoDoc.id;
+//     final cursoData = cursoDoc.data();
 
-    // 1. Cargar unidades
-    final unidadesSnap = await cursoDoc.reference.collection('unidades').get();
-    List<Unidad> unidades = [];
+//     // 1. Cargar unidades
+//     final unidadesSnap = await cursoDoc.reference.collection('unidades').get();
+//     List<Unidad> unidades = [];
 
-    for (var unidadDoc in unidadesSnap.docs) {
-      final unidadId = unidadDoc.id;
-      final unidadData = unidadDoc.data();
+//     for (var unidadDoc in unidadesSnap.docs) {
+//       final unidadId = unidadDoc.id;
+//       final unidadData = unidadDoc.data();
 
-      // 2. Cargar temas
-      final temasSnap = await unidadDoc.reference.collection('temas').get();
-      List<Tema> temas = [];
+//       // 2. Cargar temas
+//       final temasSnap = await unidadDoc.reference.collection('temas').get();
+//       List<Tema> temas = [];
 
-      for (var temaDoc in temasSnap.docs) {
-        final temaId = temaDoc.id;
-        final temaData = temaDoc.data();
+//       for (var temaDoc in temasSnap.docs) {
+//         final temaId = temaDoc.id;
+//         final temaData = temaDoc.data();
 
-        // 3. Cargar subtemas
-        final subtemasSnap =
-            await temaDoc.reference.collection('subtemas').get();
-        List<SubTema> subtemas =
-            subtemasSnap.docs.map((s) => SubTema.fromMap(s.data())).toList();
+//         // 3. Cargar subtemas
+//         final subtemasSnap =
+//             await temaDoc.reference.collection('subtemas').get();
+//         List<SubTema> subtemas =
+//             subtemasSnap.docs.map((s) => SubTema.fromMap(s.data())).toList();
 
-        temas.add(Tema(
-          id: temaId,
-          nombre: temaData['nombre'],
-          subtemas: subtemas,
-        ));
-      }
+//         temas.add(Tema(
+//           id: temaId,
+//           nombre: temaData['nombre'],
+//           subtemas: subtemas,
+//         ));
+//       }
 
-      unidades.add(Unidad(
-        id: unidadId,
-        nombre: unidadData['nombre'],
-        resumen: unidadData['resumen'],
-        temas: temas,
-      ));
-    }
+//       unidades.add(Unidad(
+//         id: unidadId,
+//         nombre: unidadData['nombre'],
+//         resumen: unidadData['resumen'],
+//         temas: temas,
+//       ));
+//     }
 
-    cursos.add(Curso(
-      id: cursoId,
-      nombre: cursoData['nombre'],
-      descripcion: cursoData['descripcion'],
-      unidades: unidades,
-    ));
-  }
+//     cursos.add(Curso(
+//       id: cursoId,
+//       nombre: cursoData['nombre'],
+//       descripcion: cursoData['descripcion'],
+//       unidades: unidades,
+//     ));
+//   }
 
-  return cursos;
-}
+//   return cursos;
+// }

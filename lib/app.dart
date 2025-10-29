@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
                   temaId: '',
                   numeroTema: 0,
                   nombreTema: '',
-                  subtema: SubTema(titulo: '', contenido: ''),
+                  subtema: SubTema(id: '', titulo: '', contenido: ''),
                   userProvider: null,
                 ),
             '/quiz': (context) => QuizScreen(nombreUnidad: ''),

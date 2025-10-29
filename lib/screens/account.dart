@@ -1,3 +1,4 @@
+import 'package:aplication_algebra_lineal/providers/content_provider.dart';
 import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -49,6 +50,8 @@ class _AccountScreen extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     final textStyles = AppTextStyles(Theme.of(context));
+    final contentProvider = Provider.of<ContentProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cuenta'),
@@ -88,7 +91,7 @@ class _AccountScreen extends State<AccountScreen> {
                     text: 'Guardar cambios'),
                 SizedBox(height: 14),
                 SimpleButtonOutlined(
-                    onPressed: () => _signOutUser(textStyles.header.color!),
+                    onPressed: () => _signOutUser(textStyles.header.color!, contentProvider),
                     text: 'Cerrar Sesión')
               ],
             )
@@ -96,7 +99,7 @@ class _AccountScreen extends State<AccountScreen> {
     );
   }
 
-  void _signOutUser(Color color) {
+  void _signOutUser(Color color, ContentProvider contentProvider) {
     QuickAlert.show(
       context: context,
       animType: QuickAlertAnimType.slideInUp,
@@ -114,6 +117,7 @@ class _AccountScreen extends State<AccountScreen> {
         _nameController.text = '';
         _lastNameController.text = '';
         _emailController.text = '';
+        contentProvider.clearCache();
 
         Navigator.pop(context);
       },
