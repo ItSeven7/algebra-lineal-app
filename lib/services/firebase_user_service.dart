@@ -5,43 +5,52 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../colecciones/usuario.dart';
 import '../models/color_themes.dart';
+import '../providers/content_provider.dart';
 
 class UserService {
+  final _db = FirebaseFirestore.instance;
+
   Future<Usuario> getUserData(String uid) async {
     final userDoc =
         await FirebaseFirestore.instance.collection('usuarios').doc(uid).get();
+    debugPrint("GET USUARIOS getUserData");
 
     final data = userDoc.data();
-    String nombre = data!['nombre'];
-    String apellidos = data['apellidos'];
-    String email = data['email'];
+    if (data == null) throw Exception("El usuario no existe.");
 
-    final progresoSnap = await userDoc.reference.collection('progreso').get();
+    String nombre = data['nombre'] ?? '';
+    String apellidos = data['apellidos'] ?? '';
+    String email = data['email'] ?? '';
+
+    // 🔹 Leer progreso (si existe)
+    Map<String, dynamic> progresoData =
+        Map<String, dynamic>.from(data['progreso_curso_1'] ?? {});
+
     List<CursoU> cursos = [];
 
-    for (var cursoDoc in progresoSnap.docs) {
-      final cursoID = cursoDoc.id;
+    progresoData.forEach((unidadId, temasMap) {
+      Map<String, dynamic> temas = Map<String, dynamic>.from(temasMap);
 
-      final unidadesSnap =
-          await cursoDoc.reference.collection('unidades').get();
-      List<UnidadU> unidades = [];
+      List<TemaU> temasList = temas.entries.map((entry) {
+        // entry.value es la lista de subtemas (List<dynamic>)
+        final subtemas = List<bool>.from(entry.value);
+        return TemaU(id: entry.key, subtemas: subtemas);
+      }).toList();
 
-      for (var unidadDoc in unidadesSnap.docs) {
-        final unidadID = unidadDoc.id;
-
-        final temasSnap = await unidadDoc.reference.collection('temas').get();
-        List<TemaU> temas =
-            temasSnap.docs.map((t) => TemaU.fromMap(t.data(), t.id)).toList();
-
-        unidades.add(UnidadU(id: unidadID, temas: temas));
-      }
-
-      cursos.add(CursoU(id: cursoID, unidades: unidades));
-    }
+      UnidadU unidad = UnidadU(id: unidadId, temas: temasList);
+      cursos.add(CursoU(id: 'curso_1', unidades: [unidad]));
+    });
 
     Progreso progreso = Progreso(cursos: cursos);
+
     Usuario usuario = Usuario(
-        nombre: nombre, apellidos: apellidos, email: email, progreso: progreso);
+      nombre: nombre,
+      apellidos: apellidos,
+      email: email,
+      progreso: progreso,
+    );
+
+    debugPrint("SUBTEMAS USUARIO: ${usuario.progreso.cursos.first.unidades.first.temas.length}");
     return usuario;
   }
 
@@ -53,6 +62,54 @@ class UserService {
       'email': email,
     }, SetOptions(merge: true));
     debugPrint('Save');
+  }
+
+  Future<void> initializeUserProgress(
+      String uid, ContentProvider contentProvider) async {
+    try {
+      final curso = contentProvider.getCurso("curso_1");
+      if (curso == null) {
+        debugPrint("⚠️ No se encontró el curso_1 en caché.");
+        return;
+      }
+
+      // Estructura base del progreso
+      final Map<String, dynamic> progresoCurso = {};
+
+      for (var unidad in curso.unidades) {
+        final Map<String, dynamic> progresoUnidad = {};
+
+        for (var tema in unidad.temas) {
+          // Cada tema tiene una lista booleana por cada subtema
+          progresoUnidad[tema.id] =
+              List.generate(tema.subtemas.length, (_) => false);
+        }
+
+        progresoCurso[unidad.id] = progresoUnidad;
+      }
+
+      await _db.collection('usuarios').doc(uid).update({
+        'progreso_curso_1': progresoCurso,
+      });
+
+      debugPrint("✅ Progreso inicial generado para usuario $uid");
+    } catch (e) {
+      debugPrint("❌ Error generando progreso: $e");
+    }
+  }
+
+  Future<void> checkAndInitializeProgress(
+      String uid, ContentProvider contentProvider) async {
+    final docRef = _db.collection('usuarios').doc(uid);
+    final snap = await docRef.get();
+    debugPrint("GET USUARIOS checkAndInitializeProgress");
+
+    if (snap.data()?['progreso_curso_1'] == null) {
+      debugPrint("🆕 Generando progreso inicial...");
+      await initializeUserProgress(uid, contentProvider);
+    } else {
+      debugPrint("✅ El usuario ya tiene progreso, no se crea nuevamente.");
+    }
   }
 
   Future<void> updateProgressUser(String uid, String cursoId) async {
@@ -129,26 +186,33 @@ class UserService {
     }
   }
 
-  Future<void> setSubtopicComplete(Usuario? usuario, String uid, String cursoId,
-      String unidadId, String temaId, int index) async {
-    for (var curso in usuario!.progreso.cursos) {
+  Future<void> setSubtopicComplete(
+    Usuario? usuario,
+    String uid,
+    String cursoId,
+    String unidadId,
+    String temaId,
+    int index,
+  ) async {
+    if (usuario == null) return;
+
+    // 1️⃣ Actualizamos el progreso en memoria
+    for (var curso in usuario.progreso.cursos) {
       if (curso.id == cursoId) {
         for (var unidad in curso.unidades) {
           if (unidad.id == unidadId) {
             for (var tema in unidad.temas) {
-              if (temaId == tema.id) {
+              if (tema.id == temaId) {
                 tema.subtemas[index] = true;
 
+                // 2️⃣ Actualizamos directamente en Firestore usando notación de puntos
                 await FirebaseFirestore.instance
                     .collection('usuarios')
                     .doc(uid)
-                    .collection('progreso')
-                    .doc(cursoId)
-                    .collection('unidades')
-                    .doc(unidadId)
-                    .collection('temas')
-                    .doc(temaId)
-                    .update({'subtemas': tema.subtemas});
+                    .update(
+                        {'progreso_curso_1.$unidadId.$temaId': tema.subtemas});
+
+                return; // ✅ Terminado, salimos del loop
               }
             }
           }

@@ -117,7 +117,6 @@ class _AccountScreen extends State<AccountScreen> {
         _nameController.text = '';
         _lastNameController.text = '';
         _emailController.text = '';
-        contentProvider.clearCache();
 
         Navigator.pop(context);
       },

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 
 import '../providers/content_provider.dart';
+import '../providers/user_provider.dart';
 import '../screens/units.dart';
 //import '../colecciones/curso.dart';
 import '../widgets/cards.dart';
@@ -60,22 +61,21 @@ class _CourseScreen extends State<CourseScreen> {
   //   super.dispose();
   //   loadingIsComplete = false;
   // }
+  @override
+  void initState() {
+    super.initState();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final contentProvider =
+        Provider.of<ContentProvider>(context, listen: false);
+
+    userProvider.refreshProgress(contentProvider);
+  }
 
   @override
   Widget build(BuildContext context) {
     // Implementa los estilos de texto dinámicamente desde 'text_styles.dart'
     final textStyles = AppTextStyles(Theme.of(context));
-    final contentProvider = Provider.of<ContentProvider>(context);
-    final curso = contentProvider.getCurso('curso_1');
-
-    if (curso == null) {
-      contentProvider.loadCurso('curso_1');
-      debugPrint("Curso: ${curso?.nombre}");
-      return Center(
-        child: LoadingAnimationWidget.threeArchedCircle(
-            color: textStyles.header.color!.withValues(alpha: 0.6), size: 40),
-      );
-    }
+    final curso = Provider.of<ContentProvider>(context).getCurso('curso_1');
 
     return Scaffold(
       appBar: const CustomAppBar(),
@@ -122,7 +122,7 @@ class _CourseScreen extends State<CourseScreen> {
                 child: ListView(
                   children: [
                     CardCourse(
-                      nombre: curso.nombre,
+                      nombre: curso!.nombre,
                       descripcion: curso.descripcion,
                       totalUnidades: curso.unidades.length,
                       onTap: () {

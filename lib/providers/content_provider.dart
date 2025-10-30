@@ -21,17 +21,20 @@ class ContentProvider with ChangeNotifier {
 
     _isLoading = true;
     //notifyListeners();
+    debugPrint("LOAD CURSO");
 
     try {
       // 1️⃣ Curso base
       final cursoDoc = await _db.collection('cursos').doc(cursoId).get();
       final curso = Curso.fromFirestore(cursoDoc);
+      debugPrint("GET CURSOS");
 
       // 2️⃣ Unidades del curso
       final unidadesSnap = await _db
           .collection('unidades')
           .where('cursoId', isEqualTo: cursoId)
           .get();
+      debugPrint("GET UNIDADES");
 
       final unidades = <Unidad>[];
       for (var unidadDoc in unidadesSnap.docs) {
@@ -42,6 +45,7 @@ class ContentProvider with ChangeNotifier {
             .collection('temas')
             .where('unidadId', isEqualTo: unidad.id)
             .get();
+        debugPrint("GET TEMAS");
 
         final temas = <Tema>[];
         for (var temaDoc in temasSnap.docs) {
@@ -52,6 +56,7 @@ class ContentProvider with ChangeNotifier {
               .collection('subtemas')
               .where('temaId', isEqualTo: tema.id)
               .get();
+          debugPrint("GET SUBTEMAS");
 
           final subtemas = subtemasSnap.docs
               .map((s) => SubTema.fromFirestore(s))
