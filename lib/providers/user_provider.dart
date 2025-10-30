@@ -9,7 +9,7 @@ class UserProvider extends ChangeNotifier {
   Usuario? _usuario;
   bool _isLoaded = false;
 
-  Usuario? get usuario => _usuario;
+  Usuario? getUsuario() => _usuario;
   bool get isLoaded => _isLoaded;
 
   Future<void> refresh() async {
@@ -23,3 +23,8 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+
+/// ARREGLAR INICIO DE SESIÓN: 
+///   CAMBIO DE USUARIO => NO SE CARGA LA INFORMACIÓN DEL NUEVO USUARIO
+/// 

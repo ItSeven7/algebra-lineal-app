@@ -96,7 +96,7 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
   }
 
   void _setSubtopicComplete(BuildContext context, UserProvider userProvider) {
-    for (var curso in userProvider.usuario!.progreso.cursos) {
+    for (var curso in userProvider.getUsuario()!.progreso.cursos) {
       if (curso.id == widget.cursoId) {
         for (var unidad in curso.unidades) {
           if (unidad.id == widget.unidadId) {
@@ -110,7 +110,7 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
 
                   userService
                       .setSubtopicComplete(
-                          widget.userProvider!.usuario,
+                          widget.userProvider!.getUsuario(),
                           uid,
                           widget.cursoId,
                           widget.unidadId,

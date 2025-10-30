@@ -39,7 +39,7 @@ class _AccountScreen extends State<AccountScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final user = Provider.of<UserProvider>(context).usuario;
+    final user = Provider.of<UserProvider>(context).getUsuario();
     if (user != null) {
       _nameController.text = user.nombre;
       _lastNameController.text = user.apellidos;

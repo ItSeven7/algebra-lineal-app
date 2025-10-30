@@ -17,45 +17,43 @@ class ProgressScreen extends StatefulWidget {
 }
 
 class _ProgressScreen extends State<ProgressScreen> {
-
   @override
   Widget build(BuildContext context) {
     final textStyles = AppTextStyles(Theme.of(context));
     final userProvider = Provider.of<UserProvider>(context);
+    final usuario = userProvider.getUsuario();
+
+    if (usuario == null) {
+      userProvider.refresh();
+      return Center(
+          child: LoadingAnimationWidget.threeArchedCircle(
+        color: textStyles.header.color!.withValues(alpha: 0.6),
+        size: 40,
+      ));
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Progreso'),
         centerTitle: true,
       ),
-      body: userProvider.isLoaded
-          ? RefreshIndicator(
-              displacement: 10,
-              onRefresh: userProvider.refresh,
-              child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: userProvider.usuario!.progreso.cursos.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final curso = userProvider.usuario!.progreso.cursos[index];
-                          return CardProgress(
-                              curso: nombreCurso[index],
-                              unidades: curso.unidades);
-                        },
-                      ),
-                    )
-                  ],
-                ),
+      body: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: usuario.progreso.cursos.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final curso = usuario.progreso.cursos[index];
+                  return CardProgress(
+                      curso: nombreCurso[index], unidades: curso.unidades);
+                },
               ),
             )
-          : Center(
-              child: LoadingAnimationWidget.threeArchedCircle(
-              color: textStyles.header.color!.withValues(alpha: 0.6),
-              size: 40,
-            )),
+          ],
+        ),
+      ),
     );
   }
 }

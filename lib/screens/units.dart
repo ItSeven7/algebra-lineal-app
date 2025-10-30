@@ -32,6 +32,15 @@ class _UnitScreenState extends State<UnitScreen> {
   Widget build(BuildContext context) {
     final textStyles = AppTextStyles(Theme.of(context));
     final userProvider = Provider.of<UserProvider>(context);
+    final usuario = userProvider.getUsuario();
+
+    if (usuario == null) {
+      userProvider.refresh();
+      return Center(
+          child: LoadingAnimationWidget.threeArchedCircle(
+              color: textStyles.header.color!.withValues(alpha: 0.6),
+              size: 40));
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -52,44 +61,35 @@ class _UnitScreenState extends State<UnitScreen> {
           automaticallyImplyLeading: false,
           title: Text('Unidades', style: AppTextStyles.subHeaderWithOpacity),
         ),
-        body: userProvider.isLoaded
-            ? RefreshIndicator(
-                displacement: 3,
-                onRefresh: userProvider.refresh,
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: ListView.builder(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    itemCount: widget.unidades.length,
-                    itemBuilder: (context, index) {
-                      final unidad = widget.unidades[index];
-                      return CardUnidad(
-                        unidad: index + 1,
-                        nombre: unidad.nombre,
-                        totalTemas: unidad.temas.length,
-                        resumen: unidad.resumen,
-                        unidadU: _obtenerTemas(userProvider.usuario, unidad.id),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => TopicScreen(
-                                        cursoId: widget.cursoId,
-                                        unidadId: unidad.id,
-                                        numeroUnidad: index + 1,
-                                        nombreUnidad: unidad.nombre,
-                                        temas: unidad.temas,
-                                      )));
-                        },
-                      );
-                    },
-                  ),
-                ),
-              )
-            : Center(
-                child: LoadingAnimationWidget.threeArchedCircle(
-                    color: textStyles.header.color!.withValues(alpha: 0.6),
-                    size: 40)),
+        body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemCount: widget.unidades.length,
+            itemBuilder: (context, index) {
+              final unidad = widget.unidades[index];
+              return CardUnidad(
+                unidad: index + 1,
+                nombre: unidad.nombre,
+                totalTemas: unidad.temas.length,
+                resumen: unidad.resumen,
+                unidadU: _obtenerTemas(usuario, unidad.id),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => TopicScreen(
+                                cursoId: widget.cursoId,
+                                unidadId: unidad.id,
+                                numeroUnidad: index + 1,
+                                nombreUnidad: unidad.nombre,
+                                temas: unidad.temas,
+                              )));
+                },
+              );
+            },
+          ),
+        ),
       ),
     );
   }
