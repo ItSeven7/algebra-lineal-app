@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 
 import '../providers/content_provider.dart';
-import '../providers/theme_provider.dart';
 import '../providers/user_provider.dart';
 import '../screens/units.dart';
-//import '../colecciones/curso.dart';
-import '../widgets/cards.dart';
 import '../models/color_themes.dart';
 import '../models/text_styles.dart';
-
-//List<Curso> cursos = [];
-//bool loadingIsComplete = false;
+import '../widgets/cards.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -45,23 +39,6 @@ class CourseScreen extends StatefulWidget {
 }
 
 class _CourseScreen extends State<CourseScreen> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   loadDataBase().then((data) {
-  //     if (!mounted) return;
-  //     setState(() {
-  //       cursos = data;
-  //       loadingIsComplete = true;
-  //     });
-  //   }).timeout(Duration(seconds: 5), onTimeout: () {});
-  // }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   loadingIsComplete = false;
-  // }
   @override
   void initState() {
     super.initState();
@@ -162,63 +139,3 @@ void showDialogAlert(BuildContext context) {
     confirmBtnText: 'Continuar',
   );
 }
-
-// Future<List<Curso>> loadDataBase() async {
-//   debugPrint("LOAD DATA BASE");
-
-//   final cursosSnap =
-//       await FirebaseFirestore.instance.collection('cursos').get();
-
-//   List<Curso> cursos = [];
-
-//   for (var cursoDoc in cursosSnap.docs) {
-//     final cursoId = cursoDoc.id;
-//     final cursoData = cursoDoc.data();
-
-//     // 1. Cargar unidades
-//     final unidadesSnap = await cursoDoc.reference.collection('unidades').get();
-//     List<Unidad> unidades = [];
-
-//     for (var unidadDoc in unidadesSnap.docs) {
-//       final unidadId = unidadDoc.id;
-//       final unidadData = unidadDoc.data();
-
-//       // 2. Cargar temas
-//       final temasSnap = await unidadDoc.reference.collection('temas').get();
-//       List<Tema> temas = [];
-
-//       for (var temaDoc in temasSnap.docs) {
-//         final temaId = temaDoc.id;
-//         final temaData = temaDoc.data();
-
-//         // 3. Cargar subtemas
-//         final subtemasSnap =
-//             await temaDoc.reference.collection('subtemas').get();
-//         List<SubTema> subtemas =
-//             subtemasSnap.docs.map((s) => SubTema.fromMap(s.data())).toList();
-
-//         temas.add(Tema(
-//           id: temaId,
-//           nombre: temaData['nombre'],
-//           subtemas: subtemas,
-//         ));
-//       }
-
-//       unidades.add(Unidad(
-//         id: unidadId,
-//         nombre: unidadData['nombre'],
-//         resumen: unidadData['resumen'],
-//         temas: temas,
-//       ));
-//     }
-
-//     cursos.add(Curso(
-//       id: cursoId,
-//       nombre: cursoData['nombre'],
-//       descripcion: cursoData['descripcion'],
-//       unidades: unidades,
-//     ));
-//   }
-
-//   return cursos;
-// }

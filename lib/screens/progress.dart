@@ -1,11 +1,11 @@
-import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/cards.dart';
+import '../providers/user_provider.dart';
 import '../models/text_styles.dart';
+import '../widgets/cards.dart';
 
 List<String> nombreCurso = ['Álgebra Lineal'];
 

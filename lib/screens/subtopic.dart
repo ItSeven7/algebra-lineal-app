@@ -6,10 +6,10 @@ import 'package:quickalert/quickalert.dart';
 import 'package:gpt_markdown/gpt_markdown.dart';
 
 import '../models/text_styles.dart';
+import '../providers/user_provider.dart';
 import '../services/firebase_user_service.dart';
 import '../colecciones/curso.dart';
 import '../widgets/buttons.dart';
-import '../providers/user_provider.dart';
 
 UserService userService = UserService();
 bool complete = true;
@@ -116,8 +116,7 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
                           widget.unidadId,
                           widget.temaId,
                           widget.index)
-                      .then((_) {                    
-                  });
+                      .then((_) {});
 
                   userProvider.refresh();
                 }
@@ -142,7 +141,6 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
       );
     } else {
       QuickAlert.show(
-        // ignore: use_build_context_synchronously
         context: context,
         animType: QuickAlertAnimType.slideInUp,
         borderRadius: 7,

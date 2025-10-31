@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 
 import '../colecciones/usuario.dart';
 import '../colecciones/curso.dart';
+import '../providers/user_provider.dart';
 import '../models/text_styles.dart';
 import '../widgets/cards.dart';
-import '../providers/user_provider.dart';
 
 // ignore: must_be_immutable
 class TopicScreen extends StatefulWidget {
@@ -68,7 +68,8 @@ class _TopicScreenState extends State<TopicScreen> {
                 numero: index + 1,
                 nombre: tema.nombre,
                 subtemas: tema.subtemas,
-                completados: _obtenerListaSubtemas(userProvider.getUsuario(), tema.id),
+                completados:
+                    _obtenerListaSubtemas(userProvider.getUsuario(), tema.id),
                 userProvider: userProvider,
               );
             },

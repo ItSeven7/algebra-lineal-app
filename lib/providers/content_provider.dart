@@ -20,7 +20,6 @@ class ContentProvider with ChangeNotifier {
     if (_cursosCache.containsKey(cursoId)) return; // ya cargado
 
     _isLoading = true;
-    //notifyListeners();
     debugPrint("LOAD CURSO");
 
     try {
@@ -58,9 +57,8 @@ class ContentProvider with ChangeNotifier {
               .get();
           debugPrint("GET SUBTEMAS");
 
-          final subtemas = subtemasSnap.docs
-              .map((s) => SubTema.fromFirestore(s))
-              .toList();
+          final subtemas =
+              subtemasSnap.docs.map((s) => SubTema.fromFirestore(s)).toList();
 
           temas.add(Tema(
             id: tema.id,

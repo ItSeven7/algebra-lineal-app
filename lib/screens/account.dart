@@ -1,5 +1,3 @@
-import 'package:aplication_algebra_lineal/providers/content_provider.dart';
-import 'package:aplication_algebra_lineal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -7,21 +5,19 @@ import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 
-//import '../colecciones/usuario.dart';
+import '../providers/user_provider.dart';
 import '../models/text_styles.dart';
+import '../services/firebase_user_service.dart';
 import '../widgets/forms.dart';
 import '../widgets/buttons.dart';
-import '../services/firebase_user_service.dart';
 
 UserService userService = UserService();
-//Usuario? usuario;
 bool complete = true;
 
 final TextEditingController _nameController = TextEditingController();
 final TextEditingController _lastNameController = TextEditingController();
 final TextEditingController _emailController = TextEditingController();
 
-// ignore: must_be_immutable
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
 
@@ -30,12 +26,6 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreen extends State<AccountScreen> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _cargarDatosUsuario();
-  // }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -91,7 +81,8 @@ class _AccountScreen extends State<AccountScreen> {
                     text: 'Guardar cambios'),
                 SizedBox(height: 14),
                 SimpleButtonOutlined(
-                    onPressed: () => _signOutUser(textStyles.header.color!, userProvider),
+                    onPressed: () =>
+                        _signOutUser(textStyles.header.color!, userProvider),
                     text: 'Cerrar Sesión')
               ],
             )
@@ -113,7 +104,6 @@ class _AccountScreen extends State<AccountScreen> {
         final auth = FirebaseAuth.instance;
         FirebaseUIAuth.signOut(context: context, auth: auth);
 
-        //usuario = null;
         _nameController.text = '';
         _lastNameController.text = '';
         _emailController.text = '';
@@ -148,7 +138,6 @@ class _AccountScreen extends State<AccountScreen> {
       );
     } else {
       QuickAlert.show(
-        // ignore: use_build_context_synchronously
         context: context,
         animType: QuickAlertAnimType.slideInUp,
         type: QuickAlertType.error,
@@ -160,18 +149,4 @@ class _AccountScreen extends State<AccountScreen> {
 
     complete = false;
   }
-
-  // Future<void> _cargarDatosUsuario() async {
-  //   // final userFirebase = FirebaseAuth.instance.currentUser;
-  //   // final data = await userService.getUserData(userFirebase!.uid);
-
-  //   if (!mounted) return; // Evita errores si la screen fue cerrada
-
-  //   setState(() {
-  //     // usuario = data;
-  //     // _nameController.text = usuario!.nombre;
-  //     // _lastNameController.text = usuario!.apellidos;
-  //     // _emailController.text = usuario!.email;
-  //   });
-  // }
 }

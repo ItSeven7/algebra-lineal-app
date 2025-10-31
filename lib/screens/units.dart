@@ -4,11 +4,11 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/topics.dart';
+import '../providers/user_provider.dart';
 import '../colecciones/curso.dart';
 import '../colecciones/usuario.dart';
-import '../widgets/cards.dart';
 import '../models/text_styles.dart';
-import '../providers/user_provider.dart';
+import '../widgets/cards.dart';
 
 // ignore: must_be_immutable
 class UnitScreen extends StatefulWidget {

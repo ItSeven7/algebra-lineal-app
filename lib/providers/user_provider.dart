@@ -28,10 +28,6 @@ class UserProvider extends ChangeNotifier {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
-    // _usuario = await _service.getUserData(uid);
-    // _isLoaded = true;
-    // debugPrint("USUARIO LEIDO: ${_usuario?.nombre}");
-
     // Verifica y genera progreso si no existe
     await _service.checkAndInitializeProgress(uid, contentProvider);
 
@@ -44,8 +40,3 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-
-/// ARREGLAR INICIO DE SESIÓN: 
-///   CAMBIO DE USUARIO => NO SE CARGA LA INFORMACIÓN DEL NUEVO USUARIO
-/// 

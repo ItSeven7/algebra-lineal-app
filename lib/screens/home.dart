@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../models/text_styles.dart';
+import '../models/color_themes.dart';
 import '../providers/content_provider.dart';
-import '../providers/theme_provider.dart';
-import '../providers/user_provider.dart';
 import '../screens/progress.dart';
 import '../screens/courses.dart';
 import '../screens/account.dart';
-import '../models/color_themes.dart';
-import '../services/firebase_user_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,15 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
     CourseScreen(),
     AccountScreen(),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    // actualizarProgreso().then((data) {
-    //   if (!mounted) return;
-    //   setState(() {});
-    // });
-  }
 
   @override
   Widget build(BuildContext context) {

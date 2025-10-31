@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// Clases para estructurar la información del curso en la app
+// Mapeados como en Firestore
+
 class Curso {
   final String id;
   final String nombre;

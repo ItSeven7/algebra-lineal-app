@@ -22,7 +22,7 @@ class UserService {
     String apellidos = data['apellidos'] ?? '';
     String email = data['email'] ?? '';
 
-    // 🔹 Leer progreso (si existe)
+    // Leer progreso (si existe)
     Map<String, dynamic> progresoData =
         Map<String, dynamic>.from(data['progreso_curso_1'] ?? {});
 
@@ -50,7 +50,6 @@ class UserService {
       progreso: progreso,
     );
 
-    //debugPrint("SUBTEMAS USUARIO: ${usuario.progreso.cursos.first.unidades.first.temas.length}");
     return usuario;
   }
 
@@ -112,6 +111,8 @@ class UserService {
     }
   }
 
+  @Deprecated(
+      "Esta función se utlizaba para actualizar la antigua estrtuctura de la base de datos del usuario (expira el 21 de Noviembre)")
   Future<void> updateProgressUser(String uid, String cursoId) async {
     final firestore = FirebaseFirestore.instance;
 
@@ -196,7 +197,7 @@ class UserService {
   ) async {
     if (usuario == null) return;
 
-    // 1️⃣ Actualizamos el progreso en memoria
+    // Actualizamos el progreso en memoria
     for (var curso in usuario.progreso.cursos) {
       if (curso.id == cursoId) {
         for (var unidad in curso.unidades) {
@@ -205,14 +206,14 @@ class UserService {
               if (tema.id == temaId) {
                 tema.subtemas[index] = true;
 
-                // 2️⃣ Actualizamos directamente en Firestore usando notación de puntos
+                // Actualizamos directamente en Firestore usando notación de puntos
                 await FirebaseFirestore.instance
                     .collection('usuarios')
                     .doc(uid)
                     .update(
                         {'progreso_curso_1.$unidadId.$temaId': tema.subtemas});
 
-                return; // ✅ Terminado, salimos del loop
+                return; // Terminamos y salimos del loop
               }
             }
           }
