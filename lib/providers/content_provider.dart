@@ -90,10 +90,4 @@ class ContentProvider with ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
-
-  /// Limpia el caché (por ejemplo, si el usuario cierra sesión)
-  void clearCache() {
-    _cursosCache.clear();
-    notifyListeners();
-  }
 }

@@ -37,6 +37,12 @@ class UserProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  /// Limpia el caché (por ejemplo, si el usuario cierra sesión)
+  void clearCache() {
+    _usuario = null;
+    notifyListeners();
+  }
 }
 
 

@@ -50,7 +50,7 @@ class UserService {
       progreso: progreso,
     );
 
-    debugPrint("SUBTEMAS USUARIO: ${usuario.progreso.cursos.first.unidades.first.temas.length}");
+    //debugPrint("SUBTEMAS USUARIO: ${usuario.progreso.cursos.first.unidades.first.temas.length}");
     return usuario;
   }
 

@@ -50,7 +50,7 @@ class _AccountScreen extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     final textStyles = AppTextStyles(Theme.of(context));
-    final contentProvider = Provider.of<ContentProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -91,7 +91,7 @@ class _AccountScreen extends State<AccountScreen> {
                     text: 'Guardar cambios'),
                 SizedBox(height: 14),
                 SimpleButtonOutlined(
-                    onPressed: () => _signOutUser(textStyles.header.color!, contentProvider),
+                    onPressed: () => _signOutUser(textStyles.header.color!, userProvider),
                     text: 'Cerrar Sesión')
               ],
             )
@@ -99,7 +99,7 @@ class _AccountScreen extends State<AccountScreen> {
     );
   }
 
-  void _signOutUser(Color color, ContentProvider contentProvider) {
+  void _signOutUser(Color color, UserProvider userProvider) {
     QuickAlert.show(
       context: context,
       animType: QuickAlertAnimType.slideInUp,
@@ -117,6 +117,7 @@ class _AccountScreen extends State<AccountScreen> {
         _nameController.text = '';
         _lastNameController.text = '';
         _emailController.text = '';
+        userProvider.clearCache();
 
         Navigator.pop(context);
       },

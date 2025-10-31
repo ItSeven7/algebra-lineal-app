@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../models/text_styles.dart';
 import '../providers/content_provider.dart';
+import '../providers/theme_provider.dart';
 import '../providers/user_provider.dart';
 import '../screens/progress.dart';
 import '../screens/courses.dart';

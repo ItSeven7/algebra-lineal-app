@@ -16,6 +16,7 @@ import 'colecciones/curso.dart';
 
 import './models/color_themes.dart';
 import './models/text_styles.dart';
+import 'services/firebase_user_service.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
