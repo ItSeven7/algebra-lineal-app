@@ -36,9 +36,11 @@ class _HomeScreenState extends State<HomeScreen> {
     if (curso == null) {
       contentProvider.loadCurso('curso_1');
       debugPrint("Curso: ${curso?.nombre}");
-      return Center(
-        child: LoadingAnimationWidget.threeArchedCircle(
-            color: textStyles.header.color!.withValues(alpha: 0.6), size: 40),
+      return Scaffold(
+        body: Center(
+          child: LoadingAnimationWidget.threeArchedCircle(
+              color: textStyles.header.color!.withValues(alpha: 0.6), size: 40),
+        ),
       );
     }
 
