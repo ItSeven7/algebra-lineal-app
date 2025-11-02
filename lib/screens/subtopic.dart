@@ -118,7 +118,9 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
                           widget.index)
                       .then((_) {});
 
-                  //userProvider.refresh();
+                  debugPrint("SUBTEMAS: ${tema.subtemas}");
+
+                  userProvider.refresh();
                   debugPrint("PROGRESO ACTUALIZADO");
                 }
                 complete = true;

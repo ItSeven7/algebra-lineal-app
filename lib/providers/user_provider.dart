@@ -17,6 +17,11 @@ class UserProvider extends ChangeNotifier {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
+    if (_usuario != null) {
+      notifyListeners();
+      return;
+    }
+
     _usuario = await _service.getUserData(uid);
     _isLoaded = true;
     debugPrint("USUARIO LEIDO: ${_usuario?.nombre}");

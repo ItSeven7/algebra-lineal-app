@@ -233,6 +233,8 @@ class CardProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyles = AppTextStyles(Theme.of(context));
+    unidades.sort((a, b) => a.id.compareTo(b.id));
+
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: ListBody(
@@ -282,6 +284,8 @@ class UnidadProgresoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    temas.sort((a, b) => a.id.compareTo(b.id));
+
     return ListTile(
       leading: Text('Unidad $unidad:', style: AppTextStyles.cardSubtitle),
       title: Row(

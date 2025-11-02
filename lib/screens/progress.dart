@@ -46,6 +46,7 @@ class _ProgressScreen extends State<ProgressScreen> {
                 itemCount: usuario.progreso.cursos.length,
                 itemBuilder: (BuildContext context, int index) {
                   final curso = usuario.progreso.cursos[index];
+                  debugPrint("PROGRESS INDEX: $index");
                   return CardProgress(
                       curso: nombreCurso[index], unidades: curso.unidades);
                 },

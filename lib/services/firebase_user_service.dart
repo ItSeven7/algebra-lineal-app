@@ -27,6 +27,7 @@ class UserService {
         Map<String, dynamic>.from(data['progreso_curso_1'] ?? {});
 
     List<CursoU> cursos = [];
+    List<UnidadU> unidades = [];
 
     progresoData.forEach((unidadId, temasMap) {
       Map<String, dynamic> temas = Map<String, dynamic>.from(temasMap);
@@ -38,8 +39,12 @@ class UserService {
       }).toList();
 
       UnidadU unidad = UnidadU(id: unidadId, temas: temasList);
-      cursos.add(CursoU(id: 'curso_1', unidades: [unidad]));
+      unidades.add(unidad);      
     });
+
+    cursos.add(CursoU(id: 'curso_1', unidades: unidades));
+
+    debugPrint("getUserData CURSOS: ${cursos.length}");
 
     Progreso progreso = Progreso(cursos: cursos);
 
