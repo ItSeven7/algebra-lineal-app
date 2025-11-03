@@ -1,3 +1,4 @@
+import 'package:algeneal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -27,8 +28,14 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    final userProvider = UserProvider();
+    userProvider.refresh();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // Implementa los estilos de texto dinámicamente desde 'text_styles.dart'
     final textStyles = AppTextStyles(Theme.of(context));
     final contentProvider = Provider.of<ContentProvider>(context);
     final curso = contentProvider.getCurso('curso_1');

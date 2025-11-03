@@ -70,7 +70,7 @@ class _TopicScreenState extends State<TopicScreen> {
                 subtemas: tema.subtemas,
                 completados:
                     _obtenerListaSubtemas(userProvider.getUsuario(), tema.id),
-                userProvider: userProvider,
+                //userProvider: userProvider,
               );
             },
           ),

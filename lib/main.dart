@@ -20,8 +20,8 @@ void main() async {
 
   final themeUser = await UserService().obtenerTemaDesdeFirestore();
 
-  final userProvider = UserProvider();
-  await userProvider.refresh();
+  //final userProvider = UserProvider();
+  //await userProvider.refresh();
 
   //await populateFirestore();
 
@@ -29,8 +29,17 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (_) => ThemeNotifier(themeUser)),
       ChangeNotifierProvider(create: (_) => ContentProvider()),
-      ChangeNotifierProvider(create: (_) => userProvider),
+      ChangeNotifierProvider(create: (_) => UserProvider()),
     ],
     child: const MyApp(),
   ));
 }
+
+/// Optimización de Firestore completada :D ! (versión 1)
+/// Hacer limpieza de código y hacer merge con el main
+/// Subir al repositorio (versión 1.2.0) 02/11/2025
+/// 
+/// Siguiente:
+///   Mejorar la UI
+///   Representación más visual sobre lo que esta completado
+///   Animaciones (para que no se sienta tan rigida la interfaz) y fluides

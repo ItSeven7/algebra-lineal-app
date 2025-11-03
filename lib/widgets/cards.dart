@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../screens/subtopic.dart';
 import '../colecciones/curso.dart';
 import '../colecciones/usuario.dart';
-import '../providers/user_provider.dart';
 import '../models/text_styles.dart';
 
 // Para mostrar el curso
@@ -127,7 +126,7 @@ class CardTema extends StatelessWidget {
   final String nombre;
   final List<SubTema> subtemas;
   final List<bool> completados;
-  final UserProvider? userProvider;
+  //final UserProvider? userProvider;
 
   const CardTema({
     super.key,
@@ -138,7 +137,7 @@ class CardTema extends StatelessWidget {
     required this.nombre,
     required this.subtemas,
     required this.completados,
-    required this.userProvider,
+    //required this.userProvider,
   });
 
   @override
@@ -176,7 +175,7 @@ class CardTema extends StatelessWidget {
                                 numeroTema: numero,
                                 nombreTema: nombre,
                                 subtema: subtemas[index],
-                                userProvider: userProvider,
+                                //userProvider: userProvider,
                               )));
                 },
                 titulo: subtemas[index].titulo,

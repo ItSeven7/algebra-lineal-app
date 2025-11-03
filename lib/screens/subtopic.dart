@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:gpt_markdown/gpt_markdown.dart';
 
@@ -31,7 +32,7 @@ class SubtopicScreen extends StatefulWidget {
   int numeroTema;
   String nombreTema;
   SubTema subtema;
-  UserProvider? userProvider;
+  //UserProvider? userProvider;
 
   SubtopicScreen({
     super.key,
@@ -42,7 +43,7 @@ class SubtopicScreen extends StatefulWidget {
     required this.numeroTema,
     required this.nombreTema,
     required this.subtema,
-    required this.userProvider,
+    //required this.userProvider,
   });
 
   @override
@@ -52,6 +53,8 @@ class SubtopicScreen extends StatefulWidget {
 class _SubtopicScreenState extends State<SubtopicScreen> {
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -83,7 +86,7 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
                 children: [
                   SimpleButtonBorder(
                     onPressed: () =>
-                        _setSubtopicComplete(context, widget.userProvider!),
+                        _setSubtopicComplete(context, userProvider),
                     text: 'Marcar como completado',
                   ),
                 ],
@@ -110,7 +113,7 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
 
                   userService
                       .setSubtopicComplete(
-                          widget.userProvider!.getUsuario(),
+                          userProvider.getUsuario(),
                           uid,
                           widget.cursoId,
                           widget.unidadId,
