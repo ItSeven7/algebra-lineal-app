@@ -58,7 +58,7 @@ class AboutPage extends StatelessWidget {
       ),
       bottomSheet: const Padding(
         padding: EdgeInsets.only(bottom: 20),
-        child: Text('Versión: 1.2.0',
+        child: Text('Versión: 2.0.0',
             textAlign: TextAlign.center,
             style: AppTextStyles.bodyBlack,
             overflow: TextOverflow.visible),

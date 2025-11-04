@@ -31,12 +31,3 @@ void main() async {
     child: const MyApp(),
   ));
 }
-
-/// Optimización de Firestore completada :D ! (versión 2)
-/// Hacer limpieza de código y hacer merge con el main (LISTO)
-/// Subir al repositorio (versión 1.2.0) 03/11/2025
-/// 
-/// Siguiente:
-///   Mejorar la UI
-///   Representación más visual sobre lo que esta completado
-///   Animaciones (para que no se sienta tan rigida la interfaz) y fluides
