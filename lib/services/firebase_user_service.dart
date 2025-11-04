@@ -39,7 +39,7 @@ class UserService {
       }).toList();
 
       UnidadU unidad = UnidadU(id: unidadId, temas: temasList);
-      unidades.add(unidad);      
+      unidades.add(unidad);
     });
 
     cursos.add(CursoU(id: 'curso_1', unidades: unidades));

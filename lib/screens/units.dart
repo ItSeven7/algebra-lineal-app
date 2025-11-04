@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/topics.dart';
@@ -30,17 +28,9 @@ class UnitScreen extends StatefulWidget {
 class _UnitScreenState extends State<UnitScreen> {
   @override
   Widget build(BuildContext context) {
-    final textStyles = AppTextStyles(Theme.of(context));
+    // final textStyles = AppTextStyles(Theme.of(context));
     final userProvider = Provider.of<UserProvider>(context);
     final usuario = userProvider.getUsuario();
-
-    if (usuario == null) {
-      userProvider.refresh();
-      return Center(
-          child: LoadingAnimationWidget.threeArchedCircle(
-              color: textStyles.header.color!.withValues(alpha: 0.6),
-              size: 40));
-    }
 
     return Scaffold(
       appBar: AppBar(

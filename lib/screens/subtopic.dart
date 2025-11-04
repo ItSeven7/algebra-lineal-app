@@ -32,7 +32,6 @@ class SubtopicScreen extends StatefulWidget {
   int numeroTema;
   String nombreTema;
   SubTema subtema;
-  //UserProvider? userProvider;
 
   SubtopicScreen({
     super.key,
@@ -43,7 +42,6 @@ class SubtopicScreen extends StatefulWidget {
     required this.numeroTema,
     required this.nombreTema,
     required this.subtema,
-    //required this.userProvider,
   });
 
   @override

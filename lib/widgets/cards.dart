@@ -310,7 +310,7 @@ int temasCompletados(UnidadU unidad) {
 
 bool esTemaCompleto(List<bool> subtemas) {
   for (var s in subtemas) {
-    debugPrint('$s');
+    // debugPrint('$s');
     if (s == false) {
       return false;
     }

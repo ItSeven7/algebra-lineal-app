@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     CourseScreen(),
     AccountScreen(),
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     final textStyles = AppTextStyles(Theme.of(context));

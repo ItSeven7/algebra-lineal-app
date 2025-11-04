@@ -32,6 +32,7 @@ class _TopicScreenState extends State<TopicScreen> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
+    final usuario = userProvider.getUsuario();
 
     return Scaffold(
       appBar: AppBar(
@@ -68,9 +69,7 @@ class _TopicScreenState extends State<TopicScreen> {
                 numero: index + 1,
                 nombre: tema.nombre,
                 subtemas: tema.subtemas,
-                completados:
-                    _obtenerListaSubtemas(userProvider.getUsuario(), tema.id),
-                //userProvider: userProvider,
+                completados: _obtenerListaSubtemas(usuario, tema.id),
               );
             },
           ),

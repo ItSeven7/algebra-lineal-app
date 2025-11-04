@@ -20,9 +20,6 @@ void main() async {
 
   final themeUser = await UserService().obtenerTemaDesdeFirestore();
 
-  //final userProvider = UserProvider();
-  //await userProvider.refresh();
-
   //await populateFirestore();
 
   runApp(MultiProvider(
@@ -35,9 +32,9 @@ void main() async {
   ));
 }
 
-/// Optimización de Firestore completada :D ! (versión 1)
-/// Hacer limpieza de código y hacer merge con el main
-/// Subir al repositorio (versión 1.2.0) 02/11/2025
+/// Optimización de Firestore completada :D ! (versión 2)
+/// Hacer limpieza de código y hacer merge con el main (LISTO)
+/// Subir al repositorio (versión 1.2.0) 03/11/2025
 /// 
 /// Siguiente:
 ///   Mejorar la UI
