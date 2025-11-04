@@ -2,8 +2,8 @@
 // Mapeados como en Firestore
 
 class Usuario {
-  final String nombre;
-  final String apellidos;
+  String nombre;
+  String apellidos;
   final String email;
   final Progreso progreso;
 

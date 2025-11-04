@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 
 import '../providers/content_provider.dart';
-import '../providers/user_provider.dart';
 import '../screens/units.dart';
 import '../models/color_themes.dart';
 import '../models/text_styles.dart';
@@ -39,16 +38,6 @@ class CourseScreen extends StatefulWidget {
 }
 
 class _CourseScreen extends State<CourseScreen> {
-  @override
-  void initState() {
-    super.initState();
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final contentProvider =
-        Provider.of<ContentProvider>(context, listen: false);
-
-    userProvider.refreshProgress(contentProvider);
-  }
-
   @override
   Widget build(BuildContext context) {
     // Implementa los estilos de texto dinámicamente desde 'text_styles.dart'

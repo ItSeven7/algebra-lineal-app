@@ -1,4 +1,3 @@
-import 'package:algeneal/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -7,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../models/text_styles.dart';
 import '../models/color_themes.dart';
 import '../providers/content_provider.dart';
+import '../providers/user_provider.dart';
 import '../screens/progress.dart';
 import '../screens/courses.dart';
 import '../screens/account.dart';
@@ -26,14 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     CourseScreen(),
     AccountScreen(),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    final userProvider = UserProvider();
-    userProvider.refresh();
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     final textStyles = AppTextStyles(Theme.of(context));
@@ -42,11 +35,68 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (curso == null) {
       contentProvider.loadCurso('curso_1');
-      debugPrint("Curso: ${curso?.nombre}");
+      debugPrint("LOAD CURSO HOME");
       return Scaffold(
         body: Center(
-          child: LoadingAnimationWidget.threeArchedCircle(
-              color: textStyles.header.color!.withValues(alpha: 0.6), size: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LoadingAnimationWidget.inkDrop(
+                  color: textStyles.header.color!.withValues(alpha: 0.6),
+                  size: 40),
+              SizedBox(height: 20),
+              Text(
+                "Cargando contenido...",
+                style: TextStyle(color: textStyles.bodyColor.color),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    final userProvider = Provider.of<UserProvider>(context);
+
+    if (userProvider.isLoadedProgress == false) {
+      userProvider.refreshProgress(contentProvider);
+      debugPrint("USER REFRESH PROGRESS: HOME");
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LoadingAnimationWidget.fourRotatingDots(
+                  color: textStyles.header.color!.withValues(alpha: 0.6),
+                  size: 40),
+              SizedBox(height: 20),
+              Text(
+                "Cargando progreso del usuario...",
+                style: TextStyle(color: textStyles.bodyColor.color),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (userProvider.isLoadedData == false) {
+      userProvider.refresh();
+      debugPrint("USER REFRESH: HOME");
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LoadingAnimationWidget.fourRotatingDots(
+                  color: textStyles.header.color!.withValues(alpha: 0.6),
+                  size: 40),
+              SizedBox(height: 20),
+              Text(
+                "Sincronizando datos del usuario...",
+                style: TextStyle(color: textStyles.bodyColor.color),
+              ),
+            ],
+          ),
         ),
       );
     }

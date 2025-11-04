@@ -25,6 +25,7 @@ class _ProgressScreen extends State<ProgressScreen> {
 
     if (usuario == null) {
       userProvider.refresh();
+      debugPrint("USER REFRESH: PROGRESS");
       return Center(
           child: LoadingAnimationWidget.threeArchedCircle(
         color: textStyles.header.color!.withValues(alpha: 0.6),

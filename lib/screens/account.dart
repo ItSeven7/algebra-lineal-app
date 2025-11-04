@@ -76,7 +76,7 @@ class _AccountScreen extends State<AccountScreen> {
               children: [
                 SimpleButtonFilled(
                     onPressed: () {
-                      _save(context);
+                      _save(context, userProvider);
                     },
                     text: 'Guardar cambios'),
                 SizedBox(height: 14),
@@ -115,7 +115,7 @@ class _AccountScreen extends State<AccountScreen> {
     );
   }
 
-  void _save(BuildContext context) {
+  void _save(BuildContext context, UserProvider userProvider) {
     final userFirebase = FirebaseAuth.instance.currentUser;
 
     userService
@@ -123,6 +123,9 @@ class _AccountScreen extends State<AccountScreen> {
             _lastNameController.text, userFirebase.email!)
         .then((_) {
       complete = true;
+      userProvider.getUsuario()!.nombre = _nameController.text;
+      userProvider.getUsuario()!.apellidos = _lastNameController.text;
+      userProvider.refresh();
     });
 
     if (complete == true) {
