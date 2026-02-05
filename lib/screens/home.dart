@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final contentProvider = Provider.of<ContentProvider>(context);
     final curso = contentProvider.getCurso('curso_1');
 
+    // Muestra una pantalla de carga si el contenido del curso no se ha cargado en caché.
     if (curso == null) {
       contentProvider.loadCurso('curso_1');
       debugPrint("LOAD CURSO HOME");
@@ -57,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final userProvider = Provider.of<UserProvider>(context);
 
+    // Muestra una pantalla de carga si los datos del usuario no han sido cargados en caché.
     if (userProvider.isLoadedProgress == false) {
       userProvider.refreshProgress(contentProvider);
       debugPrint("USER REFRESH PROGRESS: HOME");
@@ -79,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
+    // Muestra una pantalla de carga si el progreso del usuario no han sido cargados en caché.
     if (userProvider.isLoadedData == false) {
       userProvider.refresh();
       debugPrint("USER REFRESH: HOME");

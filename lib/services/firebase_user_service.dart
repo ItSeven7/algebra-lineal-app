@@ -7,9 +7,16 @@ import '../colecciones/usuario.dart';
 import '../models/color_themes.dart';
 import '../providers/content_provider.dart';
 
+/// Maneja las operaciones para obtener de **Firestore** los datos del **Usuario**.
 class UserService {
   final _db = FirebaseFirestore.instance;
 
+  /// Obtiene los datos y progreso del usuario desde su documento (UID) y los organiza de acuerdo a la colección _usuarios_.
+  /// Si el usuario se registra por primera vez crea un nuevo documento en Firestore e inicializa todos los campos, así como el progreso.
+  /// 
+  /// Si el documento (UID) no existe, devuelve una excepción.
+  /// 
+  /// Devuelve un objeto [Usuario].
   Future<Usuario> getUserData(String uid) async {
     final userDoc =
         await FirebaseFirestore.instance.collection('usuarios').doc(uid).get();
@@ -58,7 +65,8 @@ class UserService {
     return usuario;
   }
 
-  Future<void> saveChanges(
+  /// Actualiza únicamente los datos personales del usuario en el documento. Reemplaza solamente los campos que han cambiado.
+  Future<void> updatePersonalInfo(
       String uid, String nombre, String apellidos, String email) async {
     await FirebaseFirestore.instance.collection('usuarios').doc(uid).set({
       'nombre': nombre,
@@ -68,6 +76,7 @@ class UserService {
     debugPrint('Save');
   }
 
+  /// Crea el campo de progreso en el documento de Firestore del usuario.
   Future<void> initializeUserProgress(
       String uid, ContentProvider contentProvider) async {
     try {
@@ -102,6 +111,10 @@ class UserService {
     }
   }
 
+  /// Verifica la existencia del campo _progreso_ en su documento de Firestore del usuario.
+  /// Lo inicializa en caso de no existir.
+  /// 
+  /// Hasta el momento ésta es la manera de inicializar el _progreso_ del usuario. Se ejecuta cada que se inicia seión.
   Future<void> checkAndInitializeProgress(
       String uid, ContentProvider contentProvider) async {
     final docRef = _db.collection('usuarios').doc(uid);
@@ -116,82 +129,7 @@ class UserService {
     }
   }
 
-  @Deprecated(
-      "Esta función se utlizaba para actualizar la antigua estrtuctura de la base de datos del usuario (expira el 21 de Noviembre)")
-  Future<void> updateProgressUser(String uid, String cursoId) async {
-    final firestore = FirebaseFirestore.instance;
-
-    final cursoRef = firestore.collection('cursos').doc(cursoId);
-    final unidadesSnap = await cursoRef.collection('unidades').get();
-
-    for (var unidadDoc in unidadesSnap.docs) {
-      final unidadId = unidadDoc.id;
-      final temasSnap = await unidadDoc.reference.collection('temas').get();
-
-      for (var temaDoc in temasSnap.docs) {
-        final temaId = temaDoc.id;
-
-        // Subtemas del contenido (cantidad actual)
-        final subtemasSnap =
-            await temaDoc.reference.collection('subtemas').get();
-        final subtemasCount = subtemasSnap.size;
-
-        // Referencia al progreso del usuario
-        final progresoTemaRef = firestore
-            .collection('usuarios')
-            .doc(uid)
-            .collection('progreso')
-            .doc(cursoId)
-            .collection('unidades')
-            .doc(unidadId)
-            .collection('temas')
-            .doc(temaId);
-
-        final progresoSnap = await progresoTemaRef.get();
-
-        if (progresoSnap.exists) {
-          // Ya existe → comparar y extender si es necesario
-          final data = progresoSnap.data();
-          final List<bool> progresoActual =
-              (data?['subtemas'] as List<dynamic>? ?? [])
-                  .map((e) => e as bool)
-                  .toList();
-
-          final diferencia = subtemasCount - progresoActual.length;
-          if (diferencia > 0) {
-            final nuevos = List<bool>.filled(diferencia, false);
-            final actualizado = [...progresoActual.cast<bool>(), ...nuevos];
-            await progresoTemaRef.update({'subtemas': actualizado});
-            debugPrint(
-                'Tema $temaId extendido con $diferencia nuevos subtemas');
-          } else {
-            debugPrint('Tema $temaId ya está completo');
-          }
-        } else {
-          // No existe → crear nuevo tema en progreso
-          final nuevos = List<bool>.filled(subtemasCount, false);
-          await progresoTemaRef.set({'subtemas': nuevos});
-          debugPrint('Tema $temaId creado con $subtemasCount subtemas');
-        }
-
-        // Crear unidad si no existe
-        final unidadRef = progresoTemaRef.parent.parent;
-        final unidadSnap = await unidadRef!.get();
-        if (!unidadSnap.exists) {
-          await unidadRef.set({'creado': true});
-          debugPrint('Unidad $unidadId creada');
-        }
-
-        // Crear curso si no existe
-        final cursoSnap = await unidadRef.parent.parent!.get();
-        if (!cursoSnap.exists) {
-          await cursoSnap.reference.set({'creado': true});
-          debugPrint('Curso $cursoId creado');
-        }
-      }
-    }
-  }
-
+  /// Actualiza el estado de un _subtema_ en el progreso del usuario. Lo hace en el documento de Firestore y en el Provider.
   Future<void> setSubtopicComplete(
     Usuario? usuario,
     String uid,
@@ -227,6 +165,10 @@ class UserService {
     }
   }
 
+  /// Obtiene el tema de la aplicación desde el documento del usuario.
+  /// Se ejecuta cada que se inicia seión.
+  /// 
+  /// Devuelve un objeto [AppColorTheme]. Por defecto retorna [AppColorTheme.rojo].
   Future<AppColorTheme> obtenerTemaDesdeFirestore() async {
     final user = FirebaseAuth.instance.currentUser;
     var doc = await FirebaseFirestore.instance

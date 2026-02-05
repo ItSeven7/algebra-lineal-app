@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:quickalert/quickalert.dart';
 
 import '../providers/content_provider.dart';
 import '../screens/units.dart';
@@ -114,17 +113,4 @@ class _CourseScreen extends State<CourseScreen> {
       backgroundColor: ColorsUI.backgroundColor,
     );
   }
-}
-
-void showDialogAlert(BuildContext context) {
-  QuickAlert.show(
-    context: context,
-    animType: QuickAlertAnimType.slideInUp,
-    borderRadius: 7,
-    type: QuickAlertType.success,
-    confirmBtnColor: Colors.green,
-    title: '¡Bien hecho!',
-    text: 'Subtema completado exitosamente, sigue así',
-    confirmBtnText: 'Continuar',
-  );
 }

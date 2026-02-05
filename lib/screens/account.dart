@@ -12,7 +12,7 @@ import '../widgets/forms.dart';
 import '../widgets/buttons.dart';
 
 UserService userService = UserService();
-bool complete = true;
+bool saveComplete = true;
 
 final TextEditingController _nameController = TextEditingController();
 final TextEditingController _lastNameController = TextEditingController();
@@ -119,16 +119,16 @@ class _AccountScreen extends State<AccountScreen> {
     final userFirebase = FirebaseAuth.instance.currentUser;
 
     userService
-        .saveChanges(userFirebase!.uid, _nameController.text,
+        .updatePersonalInfo(userFirebase!.uid, _nameController.text,
             _lastNameController.text, userFirebase.email!)
         .then((_) {
-      complete = true;
+      saveComplete = true;
       userProvider.getUsuario()!.nombre = _nameController.text;
       userProvider.getUsuario()!.apellidos = _lastNameController.text;
       userProvider.refresh();
     });
 
-    if (complete == true) {
+    if (saveComplete == true) {
       QuickAlert.show(
         context: context,
         animType: QuickAlertAnimType.slideInUp,
@@ -150,6 +150,6 @@ class _AccountScreen extends State<AccountScreen> {
       );
     }
 
-    complete = false;
+    saveComplete = false;
   }
 }

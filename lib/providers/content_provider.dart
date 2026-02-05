@@ -3,6 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../colecciones/curso.dart';
 
+/// Representa todo el contenido del curso y de las colecciones de Firestore:
+/// - unidades
+/// - temas
+/// - subtemas
+/// 
+/// Mantiene el estado global de estos datos en un objeto [Curso].
 class ContentProvider with ChangeNotifier {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 

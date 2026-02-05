@@ -26,15 +26,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void dispose() {
-    super.dispose();
-    debugPrint("FIN!");
-  }
-
-  @override
   Widget build(BuildContext context) {
-    //final userProvider = Provider.of<UserProvider>(context);
-
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, _) {
         return MaterialApp(
@@ -73,7 +65,6 @@ class _MyAppState extends State<MyApp> {
 ThemeData buildTheme(AppColorTheme theme) {
   final primary =
       appThemeColors[theme]!; // Accede directamente al color desde el mapa
-
   return ThemeData(
     primaryColor: primary,
     scaffoldBackgroundColor: ColorsUI.backgroundColor,

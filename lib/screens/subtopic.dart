@@ -96,6 +96,10 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
     );
   }
 
+  /// Comprueba en el caché de progreso del usuario si un subtema ha sido completado y lo marca como True en caché y hace una escritura en Firebase.
+  /// Si ya está marcado como True en caché no escribe nuevamente en Firebase.
+  /// 
+  /// De esta manera se evita la escritura innecesaria en la base de datos.
   void _setSubtopicComplete(BuildContext context, UserProvider userProvider) {
     for (var curso in userProvider.getUsuario()!.progreso.cursos) {
       if (curso.id == widget.cursoId) {

@@ -6,6 +6,7 @@ import '../colecciones/usuario.dart';
 import '../services/firebase_user_service.dart';
 import '../providers/content_provider.dart';
 
+/// Provider que maneja el estado global de los datos del [Usuario].
 class UserProvider extends ChangeNotifier {
   final _service = UserService();
   Usuario? _usuario;
@@ -16,6 +17,8 @@ class UserProvider extends ChangeNotifier {
   bool get isLoadedData => _isLoadedData;
   bool get isLoadedProgress => _isLoadedProgress;
 
+  /// Carga en memoria los datos del usuario.
+  /// Si los datos ya han sido cargados solo notifica.
   Future<void> refresh() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
@@ -32,6 +35,8 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Carga en memoria el progreso del usuario, obtenido desde Firestore.
+  /// Si no tiene progreso, lo inicializa.
   Future<void> refreshProgress(ContentProvider contentProvider) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
@@ -45,7 +50,7 @@ class UserProvider extends ChangeNotifier {
       final userService = UserService();
       final currentUser = FirebaseAuth.instance.currentUser!;
 
-      await userService.saveChanges(uid, '', '', currentUser.email!);
+      await userService.updatePersonalInfo(uid, '', '', currentUser.email!);
       debugPrint("USUARIO REGISTRADO: ${currentUser.email}");
     }
 
@@ -56,7 +61,8 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Limpia el caché (por ejemplo, si el usuario cierra sesión)
+  /// Limpia el caché.
+  /// Se ejecuta el cerrar sesión.
   void clearCache() {
     _usuario = null;
     notifyListeners();
