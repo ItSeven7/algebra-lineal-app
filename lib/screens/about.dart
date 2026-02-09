@@ -17,12 +17,13 @@ class AboutPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.popUntil(context, ModalRoute.withName('/'));
+            Navigator.pop(context);
           },
         ),
       ),
       body: Center(
         child: ListView(
+          physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -32,20 +33,20 @@ class AboutPage extends StatelessWidget {
                 //   child: Image.asset('assets/img/logo_medtrack.png',
                 //       scale: 1.1, height: 160),
                 // ),
-                Text('AlGeneal\n', style: textStyles.header10),
-                Text('Sobre la Aplicación', style: textStyles.header),
+                Text('AlGeneal\n', style: textStyles.header1),
+                Text('Sobre la Aplicación', style: textStyles.header2),
                 const Text(
                     'El objetivo de la aplicación es brindarle a los estudiantes, de la materia '
                     'de Álgebra Lineal, una herramienta para repasar y retroalimentar los temas del curso.\n',
                     textAlign: TextAlign.center,
                     style: AppTextStyles.bodyBlack),
-                Text('Desarrollo', style: textStyles.header),
+                Text('Desarrollo', style: textStyles.header2),
                 const Text(
                     'Esta aplicación fue desarrollada como trabajo del servicio social '
                     'de la facultad de Ciencias de la Computación de la BUAP.\n',
                     textAlign: TextAlign.center,
                     style: AppTextStyles.bodyBlack),
-                Text('Contacto', style: textStyles.header),
+                Text('Contacto', style: textStyles.header2),
                 const Text(
                     'Para errores y/o sugerencias puedes comunicarte mandando un correo '
                     'a la siguiente dirección: ari.rodriguez@alumno.buap.mx',

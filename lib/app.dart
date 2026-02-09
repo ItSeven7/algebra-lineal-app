@@ -50,6 +50,7 @@ class _MyAppState extends State<MyApp> {
                   cursoId: '',
                   unidadId: '',
                   temaId: '',
+                  numeroUnidad: 0,
                   numeroTema: 0,
                   nombreTema: '',
                   subtema: SubTema(id: '', titulo: '', contenido: ''),
@@ -73,7 +74,7 @@ ThemeData buildTheme(AppColorTheme theme) {
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: primary,
-      titleTextStyle: AppTextStyles.subHeader,
+      titleTextStyle: AppTextStyles.header3,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: primary,
@@ -87,8 +88,12 @@ ThemeData buildTheme(AppColorTheme theme) {
         foregroundColor: ColorsUI.backgroundColor,
       ),
     ),
-    cardTheme:
-        const CardThemeData(color: ColorsUI.backgroundColor, elevation: 2),
+    cardTheme: CardThemeData(
+      color: ColorsUI.backgroundColor,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.circular(6)),
+    ),
     listTileTheme: const ListTileThemeData(
         titleTextStyle: AppTextStyles.cardTitle,
         subtitleTextStyle: AppTextStyles.cardSubtitle,
@@ -96,7 +101,7 @@ ThemeData buildTheme(AppColorTheme theme) {
     expansionTileTheme:
         ExpansionTileThemeData(textColor: AppTextStyles.bodyBlack.color),
     dialogTheme: const DialogThemeData(
-        titleTextStyle: AppTextStyles.titleBlackDialog,
+        titleTextStyle: AppTextStyles.bodyTitleBlack,
         contentTextStyle: AppTextStyles.bodyBlack),
     colorScheme: ColorScheme.fromSeed(
       seedColor: primary,

@@ -42,19 +42,19 @@ class _UnitScreenState extends State<UnitScreen> {
           },
         ),
         title: ListTile(
-          trailing: Text(widget.nombreCurso, style: AppTextStyles.subHeader),
+          trailing: Text(widget.nombreCurso, style: AppTextStyles.header3),
         ),
       ),
       body: Scaffold(
         appBar: AppBar(
           toolbarHeight: 33,
           automaticallyImplyLeading: false,
-          title: Text('Unidades', style: AppTextStyles.subHeaderWithOpacity),
+          title: Text('Unidades', style: AppTextStyles.header4),
         ),
         body: Padding(
           padding: const EdgeInsets.all(10),
           child: ListView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
+            physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
             itemCount: widget.unidades.length,
             itemBuilder: (context, index) {
               final unidad = widget.unidades[index];

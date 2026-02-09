@@ -28,7 +28,7 @@ class _ProgressScreen extends State<ProgressScreen> {
       debugPrint("USER REFRESH: PROGRESS");
       return Center(
           child: LoadingAnimationWidget.threeArchedCircle(
-        color: textStyles.header.color!.withValues(alpha: 0.6),
+        color: textStyles.header2.color!.withValues(alpha: 0.6),
         size: 40,
       ));
     }

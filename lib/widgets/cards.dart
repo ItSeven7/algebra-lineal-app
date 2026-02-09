@@ -31,17 +31,16 @@ class CardCourse extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(10)),
                   color: textStyles.bodyColor.color),
-              height: 10,
+              height: 8,
               margin: const EdgeInsets.all(0),
               padding: const EdgeInsets.all(0),
             ),
             ListTile(
               contentPadding:
-                  const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               title: ListTile(
                 contentPadding: const EdgeInsets.all(0),
                 title: Text(nombre),
@@ -92,7 +91,7 @@ class CardUnidad extends StatelessWidget {
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10)),
                   color: textStyles.bodyColor.color),
-              height: 9,
+              height: 6,
               margin: const EdgeInsets.all(0),
               padding: const EdgeInsets.all(0),
             ),
@@ -103,7 +102,10 @@ class CardUnidad extends StatelessWidget {
                 contentPadding: const EdgeInsets.all(0),
                 title: Text('Unidad $unidad'),
                 subtitle: Text(nombre),
-                trailing: Text('${temasCompletados(unidadU)}/$totalTemas'),
+                trailing: Text(
+                  'Temas: ${temasCompletados(unidadU)}/$totalTemas  ',
+                  style: TextStyle(color: esUnidadCompleta(unidadU) ? Colors.green : Colors.red),
+                ),
               ),
               subtitle: Center(
                 child: Text(resumen, style: AppTextStyles.bodyBlack),
@@ -122,6 +124,7 @@ class CardTema extends StatelessWidget {
   final String cursoId;
   final String unidadId;
   final String temaId;
+  final int numeroUnidad;
   final int numero;
   final String nombre;
   final List<SubTema> subtemas;
@@ -133,6 +136,7 @@ class CardTema extends StatelessWidget {
     required this.cursoId,
     required this.unidadId,
     required this.temaId,
+    required this.numeroUnidad,
     required this.numero,
     required this.nombre,
     required this.subtemas,
@@ -153,7 +157,7 @@ class CardTema extends StatelessWidget {
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10)),
                 color: textStyles.bodyColor.color),
-            height: 5,
+            height: 4,
             margin: const EdgeInsets.all(0),
             padding: const EdgeInsets.all(0),
           ),
@@ -172,6 +176,7 @@ class CardTema extends StatelessWidget {
                                 cursoId: cursoId,
                                 unidadId: unidadId,
                                 temaId: temaId,
+                                numeroUnidad: numeroUnidad,
                                 numeroTema: numero,
                                 nombreTema: nombre,
                                 subtema: subtemas[index],
@@ -249,11 +254,11 @@ class CardProgress extends StatelessWidget {
             padding: const EdgeInsets.all(0),
           ),
           ExpansionTile(
-            title: Text(curso, style: AppTextStyles.cardSubtitle),
-            subtitle: Text('Temas completados',
-                style: AppTextStyles.progressCardSubtitle),
+            title: Text(curso, style: AppTextStyles.cardTitle),
+            subtitle:
+                Text('Temas completados', style: AppTextStyles.cardSubtitle),
             trailing: const Text('Resumen',
-                style: AppTextStyles.cardSubtitle, textAlign: TextAlign.right),
+                style: AppTextStyles.cardTrailing, textAlign: TextAlign.right),
             children: List.generate(
               unidades.length,
               (index) => UnidadProgresoTile(
@@ -283,19 +288,30 @@ class UnidadProgresoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textStyles = AppTextStyles(Theme.of(context));
     temas.sort((a, b) => a.id.compareTo(b.id));
 
     return ListTile(
       leading: Text('Unidad $unidad:', style: AppTextStyles.cardSubtitle),
+      minTileHeight: 0,
+      minVerticalPadding: 5,
       title: Row(
         children: List.generate(
             temas.length,
             (index) => esTemaCompleto(temas[index].subtemas)
-                ? Icon(Icons.check_box_rounded, color: Colors.green)
+                ? Icon(Icons.check_box_rounded, color: textStyles.bodyColor.color)
                 : Icon(Icons.check_box_outline_blank_rounded, size: 23)),
       ),
+      // trailing: Text("data"),
     );
   }
+}
+
+bool esUnidadCompleta(UnidadU unidad){
+  if (temasCompletados(unidad) == unidad.temas.length){
+    return true;
+  }
+  return false;
 }
 
 int temasCompletados(UnidadU unidad) {

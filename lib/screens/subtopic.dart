@@ -29,6 +29,7 @@ class SubtopicScreen extends StatefulWidget {
   String cursoId;
   String unidadId;
   String temaId;
+  int numeroUnidad;
   int numeroTema;
   String nombreTema;
   SubTema subtema;
@@ -39,6 +40,7 @@ class SubtopicScreen extends StatefulWidget {
     required this.unidadId,
     required this.temaId,
     required this.index,
+    required this.numeroUnidad,
     required this.numeroTema,
     required this.nombreTema,
     required this.subtema,
@@ -62,8 +64,7 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
           },
         ),
         centerTitle: true,
-        title: Text('Tema ${widget.numeroTema}.${widget.index + 1}',
-            style: TextStyle(fontSize: 16)),
+        title: Text('Unidad ${widget.numeroUnidad}: Tema ${widget.numeroTema}.${widget.index + 1}'),
       ),
       body: ListView.builder(
         padding: EdgeInsets.all(14),

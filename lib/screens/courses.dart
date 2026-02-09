@@ -46,18 +46,18 @@ class _CourseScreen extends State<CourseScreen> {
     return Scaffold(
       appBar: const CustomAppBar(),
       drawer: Drawer(
-        width: 300,
+        width: 275,
         shape: Border.all(width: 1, color: ColorsUI.backgroundColor),
         child: ListView(
           children: [
             ListTile(
-              title: Text('AlGeneal', style: textStyles.header),
+              title: Text('AlGeneal', style: textStyles.header2),
               contentPadding: const EdgeInsets.only(left: 33.0),
               minVerticalPadding: 16.0,
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Ajustes'),
+              title: const Text('Ajustes', style: AppTextStyles.cardSubtitle),
               contentPadding: const EdgeInsets.only(left: 30.0),
               onTap: () {
                 Navigator.pushNamed(context, '/settings');
@@ -65,7 +65,7 @@ class _CourseScreen extends State<CourseScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.help),
-              title: const Text('Acerca de'),
+              title: const Text('Acerca de', style: AppTextStyles.cardSubtitle),
               contentPadding: const EdgeInsets.only(left: 30.0),
               onTap: () {
                 Navigator.pushNamed(context, '/about');
@@ -79,13 +79,14 @@ class _CourseScreen extends State<CourseScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              'Cursos:',
-              style: AppTextStyles.cardSubtitle,
-            ),
+            // const Text(
+            //   'Cursos:',
+            //   style: AppTextStyles.cardSubtitle,
+            // ),
             Expanded(
               child: Scrollbar(
                 child: ListView(
+                  physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
                   children: [
                     CardCourse(
                       nombre: curso!.nombre,

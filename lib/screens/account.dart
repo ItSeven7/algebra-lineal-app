@@ -48,9 +48,10 @@ class _AccountScreen extends State<AccountScreen> {
         centerTitle: true,
       ),
       body: Padding(
-          padding: EdgeInsets.all(20),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        padding: EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Center(child: Icon(Icons.account_circle_rounded, size: 160)),
             SizedBox(height: 30),
             Text('Información Personal:', style: AppTextStyles.bodyTitleBlack),
@@ -82,11 +83,13 @@ class _AccountScreen extends State<AccountScreen> {
                 SizedBox(height: 14),
                 SimpleButtonOutlined(
                     onPressed: () =>
-                        _signOutUser(textStyles.header.color!, userProvider),
+                        _signOutUser(textStyles.header2.color!, userProvider),
                     text: 'Cerrar Sesión')
               ],
             )
-          ])),
+          ],
+        ),
+      ),
     );
   }
 

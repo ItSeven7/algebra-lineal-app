@@ -45,7 +45,7 @@ class _TopicScreenState extends State<TopicScreen> {
         ),
         title: ListTile(
           trailing: Text('Unidad ${widget.numeroUnidad}',
-              style: AppTextStyles.subHeader),
+              style: AppTextStyles.header3),
         ),
       ),
       body: Scaffold(
@@ -53,12 +53,12 @@ class _TopicScreenState extends State<TopicScreen> {
           toolbarHeight: 33,
           automaticallyImplyLeading: false,
           title: Text(widget.nombreUnidad,
-              style: AppTextStyles.subHeaderWithOpacity),
+              style: AppTextStyles.header4),
         ),
         body: Padding(
           padding: const EdgeInsets.all(10),
           child: ListView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
+            physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
             itemCount: widget.temas.length,
             itemBuilder: (context, index) {
               final tema = widget.temas[index];
@@ -66,6 +66,7 @@ class _TopicScreenState extends State<TopicScreen> {
                 cursoId: widget.cursoId,
                 unidadId: widget.unidadId,
                 temaId: tema.id,
+                numeroUnidad: widget.numeroUnidad,
                 numero: index + 1,
                 nombre: tema.nombre,
                 subtemas: tema.subtemas,

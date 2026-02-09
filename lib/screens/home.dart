@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               LoadingAnimationWidget.inkDrop(
-                  color: textStyles.header.color!.withValues(alpha: 0.6),
+                  color: textStyles.header2.color!.withValues(alpha: 0.6),
                   size: 40),
               SizedBox(height: 20),
               Text(
@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               LoadingAnimationWidget.fourRotatingDots(
-                  color: textStyles.header.color!.withValues(alpha: 0.6),
+                  color: textStyles.header2.color!.withValues(alpha: 0.6),
                   size: 40),
               SizedBox(height: 20),
               Text(
@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               LoadingAnimationWidget.fourRotatingDots(
-                  color: textStyles.header.color!.withValues(alpha: 0.6),
+                  color: textStyles.header2.color!.withValues(alpha: 0.6),
                   size: 40),
               SizedBox(height: 20),
               Text(

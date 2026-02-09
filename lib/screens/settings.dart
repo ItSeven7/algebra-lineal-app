@@ -14,25 +14,28 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+    final textStyles = AppTextStyles(Theme.of(context));
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.popUntil(context, ModalRoute.withName('/'));
+            Navigator.pop(context);
           },
         ),
         title: const Text('Ajustes'),
         centerTitle: true,
       ),
       body: ListView(
+        padding: EdgeInsets.all(8),
         children: [
           ListTile(
-            trailing: const Icon(Icons.palette),
             title: const Text('Tema', style: AppTextStyles.bodyTitleBlack),
             subtitle: const Text(
-                'Selecciona el color que más te guste para la aplicación!'),
+                'Selecciona el color principal para aplicación',
+                style: AppTextStyles.bodyBlack),
+            trailing: Icon(Icons.palette, color: textStyles.bodyColor.color),
             onTap: () => _showThemeDialog(context, themeNotifier),
           ),
         ],
@@ -46,7 +49,8 @@ void _showThemeDialog(BuildContext context, ThemeNotifier themeNotifier) {
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: const Text('Selecciona un tema'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+        title: const Text('Temas disponibles'),
         content: SizedBox(
           width: double.maxFinite,
           child: ListView(
@@ -56,7 +60,7 @@ void _showThemeDialog(BuildContext context, ThemeNotifier themeNotifier) {
 
               return ListTile(
                 leading: CircleAvatar(backgroundColor: color),
-                titleTextStyle: AppTextStyles.bodyBlack,
+                titleTextStyle: AppTextStyles.cardSubtitle,
                 title: Text(
                   getNombreColor(theme.name),
                 ),
