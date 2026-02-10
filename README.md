@@ -1,52 +1,125 @@
-# AlGeneal
+# AlGeneal :books:
 
-Una aplicación Móvil/Web educativa desarrollada en Flutter. Permite a los estudiantes consultar temas y recursos de la materia de álgebra lineal, con autenticación de usuarios en Firebase, seguimiento del progreso y sincronización de datos en tiempo real con Firestore.
+AlGeneal es una aplicación educativa multiplataforma (Android y Web como alternativa a iOS) desarrollada en **Flutter**, orientada a apoyar el **aprendizaje autónomo de Álgebra Lineal.**
+La aplicación permite a los estudiantes estudiar contenido estructurado, dar seguimiento a su progreso y mantener su información sincronizada en la nube mediante **Firebase.**
+
+El objetivo principal de AlGeneal es **organizar el estudio, visualizar el avance y mejorar la experiencia de aprendizaje** en una materia que suele resultar abstracta para muchos estudiantes.
 
 ---
 
-## Tecnologías
+## Tecnologías :rocket:
 
-#Flutter #Dart #Firebase
+### Flutter
+Flutter es un SDK de código abierto desarrollado por Google que permite crear aplicaciones multiplataforma a partir de un único código en Dart.
+Se utilizó por su:
+- Alto rendimiento
+- Desarrollo rápido de interfaces
+- Facilidad para mantener una sola base de código para móvil y web
 
+### Firebase (Backend as a Service)
+Firebase se empleó como backend debido a su integración nativa con Flutter y su enfoque en aplicaciones modernas.
+Servicios utilizados:
+- **Authentication:** Registro e inicio de sesión mediante correo electrónico
+- **Cloud Firestore:** Almacenamiento de datos en una base NoSQL con sincronización en tiempo real
+- **App Hosting:** Despliegue de la versión web de la aplicación
 
-## Características
+---
 
-1. **Creación de cuenta:**
-    - Autenticación de usuario con email y contraseña.
-    - Perfil del usuario (Nombre y Apellidos).
-2. **Navegación del contenido del curso:**
-    - Consultar la información en cualquier momento.
-    - Buscar por curso, unidad, temas y subtemas.
-    - Uso offline. Puedes seguir navegando en el contenido aún sin conexión a internet (la sincronización de datos se hará hasta que te vuelvas a conectar).
+## Características Principales :pushpin:
+
+1. **Autenticación y usuarios:**
+    - Registro e inicio de sesión con correo y contraseña
+    - Perfil de usuario con nombre y apellidos
+    - Persistencia de sesión
+2. **Contenido académico:**
+    - Contenido organizado jerárquicamente por:
+        - Curso
+        - Unidad
+        - Tema
+        - Subtema
+    - Teoría presentada en **formato Markdown,** lo que permite una lectura clara y estilizada
+    - Acceso al contenido sin conexión con sincronización diferida
 3. **Seguimiento del progreso:**
-    - Marcar subtemas como completados/vistos.
-    - Visualización gráfica del progreso del usuario, desglosado por unidades y temas completados.
-    - Guardo automático en la nube.
-    - Sincronización de datos en tiempo real.
-4. **Personalización:**
-    - Elige entre 10 temas para la aplicación.
-5. **Diseño simple e intuitivo:**
-    - Barra de navegación entre pantallas.
-    - Tarjetas con títulos claros y descripciones cortas.
-    - Indicadores de progreso en cada tarjeta y subtemas.
-    - Animaciones y retroalimentaciones gráficas.
-    - Diseño responsivo para móvil (Versión Web).
+    - Marcar subtemas como vistos o completados
+    - Visualización del avance por unidad
+    - Sincronización automática del progreso con la nube
+4. **Interfaz y experiencia de usuario:**
+    - Diseño ligero e intuitivo
+    - Uso de tarjetas con títulos claros y descripciones breves
+    - Indicadores visuales de progreso
+    - Animaciones y retroalimentación visual
+    - Diseño responsivo para celular en la versión web
+5. **Personalización:**
+    - Selección entre 10 temas visuales
+    - Manejo global del tema mediante Provider
 6. **Multiplataforma:**
-    - Móvil: para usuarios de Android.
-    - Web: para computadoras de escritorio y laptops. Alternativa para usuarios de iOS.
+    - Versión móvil para Android
+    - Aplicación web como alternativa para iOS
+
 ---
 
-## Organización
+## Estado del Proyecto
+:green_circle: **Versión funcional**
 
-La información se organiza en contenidos de cada curso mediante tarjetas, como se muestra a continuación:
+La aplicación se encuentra en una versión estable (2.1.0) donde todas las funcionalidades principales están implementadas y operativas.
 
-- **Curso** (En este caso Álgebra Lineal)
-    - **Unidades** (5 unidades)
-        - **Temas** (Depende de los temas que contenga cada unidad)
-            - **Subtema**
-                - **Contenido** (En formato Markdown)
+:wrench: **En desarrollo**
+
+- Exámenes parciales
+- Ejercicios prácticos por subtema
+- Estadísticas de desempeño
+- Mejora de la retroalimentación visual
+
 ---
 
-## Versión actual
+## Arquitectura y decisiones técnicas :file_folder:
 
-[1.1.4] - 2025-09-26
+- **Manejo de estado:** Provider para el control global del usuario, progreso y tema visual
+
+- **Firestore como fuente única de verdad:** El progreso del usuario se sincroniza automáticamente entre dispositivos
+
+- **Soporte offline:** El contenido puede consultarse sin conexión y se sincroniza cuando el usuario recupera conectividad
+
+- **Separación de responsabilidades:** Uso de modelos, providers y screens para mantener el código organizado y escalable
+
+---
+
+## Capturas :iphone:
+
+### Pantallas Principales
+Barra de navegación inferior entre pantallas.
+
+<img src="assets/screenshots/progreso.jpg" width="200">
+<img src="assets/screenshots/inicio_rojo.jpg" width="200">
+<img src="assets/screenshots/perfil.jpg" width="200">
+
+### Contenido
+Organización del contenido en cursos, unidades y temas, presentados como tarjetas con indicadores de progreso.
+
+<img src="assets/screenshots/unidades.jpg" width="200">
+<img src="assets/screenshots/temas.jpg" width="200">
+
+Los subtemas se muestran en formato Markdown para facilitar la lectura y el estilo del contenido.
+
+<img src="assets/screenshots/subtema.jpg" width="200">
+
+### Retroalimentación
+Animaciones breves que informan al usuario sobre acciones importantes dentro de la aplicación:
+- Primera imagen: Notificación al completar un subtema
+- Segunda imagen: Pantallas de carga durante la sincronización y carga de contenido
+
+<img src="assets/screenshots/subtema_completado.jpg" width="200">
+<img src="assets/screenshots/pantallas_carga.jpg" width="200">
+
+### Personalización
+Selección del color principal de la aplicación.
+
+<img src="assets/screenshots/temas_colores.jpg" width="200">
+<img src="assets/screenshots/inicio_morado.jpg" width="200">
+<img src="assets/screenshots/temas_2.jpg" width="200">
+
+### Autenticación
+Registro de cuentas, inicio de sesión y cierre de sesión.
+
+<img src="assets/screenshots/registro_cuenta.jpg" width="200">
+<img src="assets/screenshots/perfil_logout.jpg" width="200">
