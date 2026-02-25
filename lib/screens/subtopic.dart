@@ -147,6 +147,10 @@ class _SubtopicScreenState extends State<SubtopicScreen> {
         title: frasesMotivacion[Random().nextInt(5)],
         text: 'Subtema completado, sigue así',
         confirmBtnText: 'Continuar',
+        onConfirmBtnTap: () {
+          Navigator.pop(context);
+          Navigator.pop(context); 
+        },
       );
     } else {
       QuickAlert.show(
