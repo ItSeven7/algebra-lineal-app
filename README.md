@@ -89,15 +89,12 @@ La aplicación se encuentra en una versión estable (2.1.0) donde todas las func
 ### Pantallas Principales
 Barra de navegación inferior entre pantallas.
 
-<img src="assets/screenshots/progreso.jpg" width="200">
-<img src="assets/screenshots/inicio_rojo.jpg" width="200">
-<img src="assets/screenshots/perfil.jpg" width="200">
+<img src="assets/screenshots/progreso.jpg" width="200"> <img src="assets/screenshots/inicio_rojo.jpg" width="200"> <img src="assets/screenshots/perfil.jpg" width="200">
 
 ### Contenido
 Organización del contenido en cursos, unidades y temas, presentados como tarjetas con indicadores de progreso.
 
-<img src="assets/screenshots/unidades.jpg" width="200">
-<img src="assets/screenshots/temas.jpg" width="200">
+<img src="assets/screenshots/unidades.jpg" width="200"> <img src="assets/screenshots/temas.jpg" width="200">
 
 Los subtemas se muestran en formato Markdown para facilitar la lectura y el estilo del contenido.
 
@@ -108,18 +105,14 @@ Animaciones breves que informan al usuario sobre acciones importantes dentro de 
 - Primera imagen: Notificación al completar un subtema
 - Segunda imagen: Pantallas de carga durante la sincronización y carga de contenido
 
-<img src="assets/screenshots/subtema_completado.jpg" width="200">
-<img src="assets/screenshots/pantallas_carga.jpg" width="200">
+<img src="assets/screenshots/subtema_completado.jpg" width="200"> <img src="assets/screenshots/pantallas_carga.jpg" width="200">
 
 ### Personalización
 Selección del color principal de la aplicación.
 
-<img src="assets/screenshots/temas_colores.jpg" width="200">
-<img src="assets/screenshots/inicio_morado.jpg" width="200">
-<img src="assets/screenshots/temas_2.jpg" width="200">
+<img src="assets/screenshots/temas_colores.jpg" width="200"> <img src="assets/screenshots/inicio_morado.jpg" width="200"> <img src="assets/screenshots/temas_2.jpg" width="200">
 
 ### Autenticación
 Registro de cuentas, inicio de sesión y cierre de sesión.
 
-<img src="assets/screenshots/registro_cuenta.jpg" width="200">
-<img src="assets/screenshots/perfil_logout.jpg" width="200">
+<img src="assets/screenshots/registro_cuenta.jpg" width="200"> <img src="assets/screenshots/perfil_logout.jpg" width="200">
