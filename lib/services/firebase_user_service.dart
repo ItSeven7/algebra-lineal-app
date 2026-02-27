@@ -171,9 +171,14 @@ class UserService {
   /// Devuelve un objeto [AppColorTheme]. Por defecto retorna [AppColorTheme.rojo].
   Future<AppColorTheme> obtenerTemaDesdeFirestore() async {
     final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      return AppColorTheme.rojo;
+    }
+
     var doc = await FirebaseFirestore.instance
         .collection('usuarios')
-        .doc(user?.uid)
+        .doc(user.uid)
         .collection('ajustes')
         .doc('tema')
         .get();
