@@ -44,3 +44,4 @@ app.*.map.json
 
 # Others
 /lib/scripts/
+/android/app/google-services.json
