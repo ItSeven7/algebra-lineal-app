@@ -29,10 +29,10 @@ class AboutPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text('\n'),
-                // Card(
-                //   child: Image.asset('assets/img/logo_medtrack.png',
-                //       scale: 1.1, height: 160),
-                // ),
+                Card(
+                  child: Image.asset('assets/img/icon_algeneal.png',
+                      scale: 1.1, height: 160),
+                ),
                 Text('AlGeneal\n', style: textStyles.header1),
                 Text('Sobre la Aplicación', style: textStyles.header2),
                 const Text(
